@@ -1,0 +1,55 @@
+name: Cargo Build & Test
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+env:
+  CARGO_INCREMENTAL: 0
+
+jobs:
+  build_and_test:
+    env:
+      PERSEUS_VERSION: 0.4.0
+    name: Build and Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        toolchain:
+          - stable
+    steps:
+      - name: Checkout respository
+        uses: actions/checkout@v4
+
+      - name: Cache all bin of Cargo
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: |
+            ~/.cargo/bin/
+          # The cache should be OS-specific
+          key: ${{ runner.os }}-website-cargo-bins-$PERSEUS_VERSION
+
+      - name: Setup Rust
+        run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
+
+      # Only install the binaries if the cache doesn't have them
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: cargo install perseus-cli --version $PERSEUS_VERSION
+
+      # Also cache all the other Cargo files, since plenty of CI runs won't involve different dependencies
+      - name: Cache other files Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+            dist/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+
+      - name: Check using Perseus
+        run: perseus check
