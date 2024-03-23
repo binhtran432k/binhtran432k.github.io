@@ -11,27 +11,18 @@ jobs:
       PERSEUS_VERSION: 0.4.0
     name: Build and Test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        toolchain:
-          - stable
     steps:
       - name: Checkout respository
         uses: actions/checkout@v4
 
-      - name: Cache Cargo and Rustup
+      - name: Cache cargo binaries
         uses: actions/cache@v4
         id: cache
         with:
           path: |
-            ~/.cargo/
-            ~/.rustup/
+            ~/.cargo/bin/
           # The cache should be OS-specific
           key: ${{ runner.os }}-website-cargo-bins-$PERSEUS_VERSION
-
-      - name: Setup Rust
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
 
       # Only install the binaries if the cache doesn't have them
       - name: Install Dependencies
@@ -42,6 +33,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
             target/
             dist/
           key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
