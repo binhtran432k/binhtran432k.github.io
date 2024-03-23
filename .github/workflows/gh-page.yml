@@ -55,15 +55,15 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
 
       - name: Build using Perseus
-        run: perseus deploy -e
+        run: perseus export --release
 
       - name: Hack Browser Router for Github Page
-        run: cp ./pkg/index.html ./pkg/404.html
+        run: perseus export-error-page -c 404 -o dist/exported/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./pkg/
+          path: ./dist/exported/
   deploy:
     name: Deploy Github Pages
     runs-on: ubuntu-latest
