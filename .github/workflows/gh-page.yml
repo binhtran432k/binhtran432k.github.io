@@ -16,6 +16,8 @@ concurrency:
 
 jobs:
   build:
+    env:
+      PERSEUS_VERSION: 0.4.0
     name: Build Static Site Generation
     runs-on: ubuntu-latest
     strategy:
