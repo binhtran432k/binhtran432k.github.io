@@ -1,15 +1,19 @@
 name: Build GitHub Pages
+
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: "pages"
   cancel-in-progress: false
+
 jobs:
   build:
     name: Build Static Site Generation
@@ -25,16 +29,18 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
 
-      - name: Cache all bin of Cargo
+      - name: Cache Cargo and Rustup
         uses: actions/cache@v4
         id: cache
         with:
           path: |
-            ~/.cargo/bin/
+            ~/.cargo/
+            ~/.rustup/
           # The cache should be OS-specific
           key: ${{ runner.os }}-website-cargo-bins-$PERSEUS_VERSION
 
       - name: Setup Rust
+        if: steps.cache.outputs.cache-hit != 'true'
         run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
 
       # Only install the binaries if the cache doesn't have them
@@ -42,14 +48,10 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: cargo install perseus-cli --version $PERSEUS_VERSION
 
-      # Also cache all the other Cargo files, since plenty of CI runs won't involve different dependencies
-      - name: Cache other files Cargo
+      - name: Cache local build
         uses: actions/cache@v4
         with:
           path: |
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
             target/
             dist/
           key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
@@ -57,13 +59,14 @@ jobs:
       - name: Build using Perseus
         run: perseus export --release
 
-      - name: Hack Browser Router for Github Page
+      - name: Setup Not Found Page
         run: perseus export-error-page -c 404 -o dist/exported/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./dist/exported/
+
   deploy:
     name: Deploy Github Pages
     runs-on: ubuntu-latest
