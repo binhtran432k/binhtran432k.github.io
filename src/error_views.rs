@@ -8,7 +8,7 @@ fn get_error_page<G: Html>(cx: Scope, title: String, message: String) -> (View<S
         },
         view! { cx,
             // Don't worry, there are much better ways of styling in Perseus!
-            div(style = "display: flex; flex-direction: column; justify-content: center; align-items: center; height: 95vh;") {
+            div(class="test") {
                 h1 { (title) }
                 p { (message) }
             }
