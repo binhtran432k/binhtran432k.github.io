@@ -50,6 +50,8 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo
 
       - name: Cache perseus builds
         uses: actions/cache@v4
@@ -57,6 +59,8 @@ jobs:
           path: |
             dist/
           key: ${{ runner.os }}-cargo-build-${{ hashFiles('Cargo.lock') }}-${{ hashFiles('src/**/*', 'static/**/*') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-build
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v1
