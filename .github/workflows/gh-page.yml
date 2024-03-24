@@ -52,11 +52,26 @@ jobs:
             dist/
           key: ${{ runner.os }}-cargo-build-${{ hashFiles('Cargo.lock') }}
 
-      - name: Build using Perseus
-        run: perseus export --release
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
 
-      - name: Setup Not Found Page
-        run: perseus export-error-page -c 404 -o dist/exported/404.html
+      - name: Cache node modules
+        id: bun-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules/
+          key: ${{ runner.os }}-node-${{ hashFiles('bun.lockb') }}
+
+      - name: Install bun dependencies
+        if: steps.bun-cache.outputs.cache-hit != 'true'
+        run: bun install --frozen-lockfile
+
+      - name: Generate css from scss
+        run: bun sass
+
+      - name: Build using Perseus
+        run: bun build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1

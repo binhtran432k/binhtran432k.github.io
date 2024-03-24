@@ -4,7 +4,7 @@ use sycamore::prelude::*;
 fn index_page<G: Html>(cx: Scope) -> View<G> {
     view! { cx,
         // Don't worry, there are much better ways of styling in Perseus!
-        div(style = "display: flex; flex-direction: column; justify-content: center; align-items: center; height: 95vh;") {
+        div(class="test") {
             h1 { "Welcome to Perseus!" }
             p {
                 "This is just an example app. Try changing some code inside "

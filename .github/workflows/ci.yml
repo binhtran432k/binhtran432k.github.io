@@ -40,5 +40,23 @@ jobs:
             dist/
           key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
 
-      - name: Check using Perseus
-        run: perseus check
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Cache node modules
+        id: bun-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules/
+          key: ${{ runner.os }}-node-${{ hashFiles('bun.lockb') }}
+
+      - name: Install bun dependencies
+        if: steps.bun-cache.outputs.cache-hit != 'true'
+        run: bun install --frozen-lockfile
+
+      - name: Check build sass
+        run: bun sass
+
+      - name: Check build static
+        run: bun check
