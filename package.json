@@ -6,9 +6,9 @@
     "dev": "perseus serve -w",
     "preview": "perseus export -w",
     "check": "perseus check",
-    "sass": "sass src/sass:static/styles",
-    "build": "perseus export --release && perseus export-error-page -c 404 -o dist/exported/404.html",
-    "sass:watch": "sass --watch src/sass:static/styles"
+    "sass": "sass --no-source-map src/sass:static/styles",
+    "sass:watch": "sass --no-source-map --watch src/sass:static/styles",
+    "build": "perseus export --release && perseus export-error-page -c 404 -o dist/exported/404.html"
   },
   "devDependencies": {
     "sass": "^1.72.0"
