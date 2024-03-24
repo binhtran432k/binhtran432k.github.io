@@ -56,7 +56,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Check build sass
-        run: bun sass
+        run: bun run sass
 
       - name: Check build static
-        run: bun check
+        run: bun run check
