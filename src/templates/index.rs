@@ -1,10 +1,11 @@
 use perseus::prelude::*;
 use sycamore::prelude::*;
 
+use crate::components::layout::Layout;
+
 fn index_page<G: Html>(cx: Scope) -> View<G> {
     view! { cx,
-        // Don't worry, there are much better ways of styling in Perseus!
-        div(class="test") {
+        Layout {
             h1 { "Welcome to Perseus!" }
             p {
                 "This is just an example app. Try changing some code inside "

@@ -15,6 +15,13 @@ jobs:
       - name: Checkout respository
         uses: actions/checkout@v4
 
+      - name: Install rust toolchain
+        run: |
+          rustup update --no-self-update ${{ env.RUST_CHANNEL }}
+          rustup default ${{ env.RUST_CHANNEL }}
+        env:
+          RUST_CHANNEL: nightly
+
       - name: Cache cargo binaries
         uses: actions/cache@v4
         id: cache
@@ -66,7 +73,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Check build sass
-        run: bun run sass
+        run: bun run deploy:sass
 
       - name: Check build static
         run: bun run check
