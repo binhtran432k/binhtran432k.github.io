@@ -3,12 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "perseus serve -w",
-    "preview": "perseus export -w",
-    "check": "perseus check",
-    "sass": "sass static/sass:static/styles",
-    "sass:watch": "sass --watch static/sass:static/styles",
-    "build": "perseus export --release && perseus export-error-page -c 404 -o dist/exported/404.html"
+    "dev": "perseus export -sw | sass --watch static/sass:static/styles",
+    "deploy": "bun run deploy:sass && bun run deploy:web && bun run deploy:notfound",
+    "deploy:sass": "sass --style compressed static/sass:static/styles",
+    "deploy:web": "perseus deploy -e",
+    "deploy:notfound": "perseus export-error-page -c 404 -o pkg/404.html",
+    "check": "perseus check"
   },
   "devDependencies": {
     "sass": "^1.72.0"

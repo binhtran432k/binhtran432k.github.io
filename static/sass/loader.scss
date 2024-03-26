@@ -1,0 +1,200 @@
+.loader {
+  $green: #6cff8d;
+  $green-50: rgba($green, 0.4);
+  $fg: #fff;
+  $bg: #0b134f;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 99;
+  background-color: $bg;
+  display: grid;
+  place-items: center;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+
+  @media (max-width: 355px) {
+    & {
+      font-size: 1rem;
+    }
+  }
+
+  &__box {
+    position: relative;
+    max-width: 500px;
+    width: 90%;
+    padding: 1rem;
+    border: 0.1875rem solid $green;
+    border-top-color: $green-50;
+    border-bottom-color: $green-50;
+  }
+
+  &--loaded &__box {
+    animation: box-amination 2s forwards;
+
+    @keyframes box-amination {
+      0% {
+        min-height: 10rem;
+      }
+
+      50% {
+        border-radius: 50%;
+        min-height: min(500px, 100vw);
+      }
+
+      100% {
+        border-radius: 50%;
+        min-height: min(500px, 100vw);
+        border-color: transparent;
+      }
+    }
+  }
+
+  &__bar {
+    width: 90%;
+    height: 0.625rem;
+    margin: 2rem auto 3rem auto;
+    background-color: #ccc;
+
+    &--inner {
+      width: 0;
+      height: 100%;
+      background-color: $green;
+    }
+
+    &,
+    &--inner {
+      border-radius: 0.125rem;
+    }
+
+    position: relative;
+    left: 0;
+  }
+
+  &--loaded &__bar {
+    rotate: 90deg;
+    left: 1000%;
+    transition-property: left, rotate;
+    transition-duration: 2s;
+  }
+
+  &__text {
+    position: relative;
+    padding-bottom: 1rem;
+    color: $fg;
+    text-transform: uppercase;
+    text-align: center;
+
+
+    &--dot {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      margin: 0 0.1875rem;
+      border-radius: 50%;
+      background: $fg;
+      transform: translateY(10%);
+      animation: pulse 1s infinite;
+
+      @keyframes pulse {
+        from {
+          opacity: 0;
+          background-color: $green;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+    }
+
+    &--border {
+      width: 85%;
+      height: 0.0625rem;
+      background-color: $green-50;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__counter {
+    color: $fg;
+    display: flex;
+    justify-content: space-between;
+
+    &--number {
+      color: $green;
+    }
+  }
+
+  &--loaded &__text,
+  &--loaded &__counter {
+    opacity: 0;
+    transition: opacity 600ms;
+  }
+
+  &__width-animation {
+    animation: width-amination 1s forwards;
+
+    @keyframes width-amination {
+      from {
+        max-width: 85%;
+      }
+
+      to {
+        max-width: 250px;
+      }
+    }
+  }
+
+  &__image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0 0;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    height: auto;
+    opacity: 0;
+    filter: hue-rotate(310deg);
+  }
+
+  &--loaded &__image {
+    animation: image-amination 70s forwards;
+
+    @keyframes image-amination {
+      0% {
+        opacity: 0;
+      }
+
+      2% {
+        opacity: 1;
+        rotate: -60deg;
+      }
+
+      100% {
+        opacity: 1;
+        rotate: -720deg;
+      }
+    }
+  }
+
+  &--loaded {
+    animation: loaded-animation 600ms forwards;
+    animation-delay: 600ms;
+
+    @keyframes loaded-animation {
+      to {
+        background-color: transparent;
+        opacity: 0.3;
+      }
+    }
+  }
+}

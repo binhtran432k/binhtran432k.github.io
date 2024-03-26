@@ -27,6 +27,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
 
+      - name: Install rust toolchain
+        run: |
+          rustup update --no-self-update ${{ env.RUST_CHANNEL }}
+          rustup default ${{ env.RUST_CHANNEL }}
+        env:
+          RUST_CHANNEL: nightly
+
       - name: Cache cargo binaries
         uses: actions/cache@v4
         id: cache
@@ -77,16 +84,13 @@ jobs:
         if: steps.bun-cache.outputs.cache-hit != 'true'
         run: bun install --frozen-lockfile
 
-      - name: Generate css from scss
-        run: bun run sass
-
       - name: Build using Perseus
-        run: bun run build
+        run: bun run deploy
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./dist/exported/
+          path: ./pkg/
 
   deploy:
     name: Deploy Github Pages
