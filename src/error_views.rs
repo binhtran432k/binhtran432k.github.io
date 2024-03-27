@@ -1,14 +1,16 @@
 use perseus::{errors::ClientError, prelude::*};
 use sycamore::prelude::*;
 
+use crate::layouts::error::{Error, ErrorHead};
+
 fn get_error_page<G: Html>(cx: Scope, title: String, message: String) -> (View<SsrNode>, View<G>) {
     (
         view! { cx,
             title { (title) }
+            ErrorHead
         },
         view! { cx,
-            // Don't worry, there are much better ways of styling in Perseus!
-            div(class="test") {
+            Error {
                 h1 { (title) }
                 p { (message) }
             }
@@ -17,7 +19,7 @@ fn get_error_page<G: Html>(cx: Scope, title: String, message: String) -> (View<S
 }
 
 pub fn get_error_views<G: Html>() -> ErrorViews<G> {
-    ErrorViews::new(|cx, err, _err_info, _err_pos| {
+    ErrorViews::new(|cx, err, _err_info, _err_pos| -> (View<SsrNode>, View<G>) {
         match err {
         ClientError::ServerError { status, message: _ } => match status {
             404 => get_error_page(

@@ -5,13 +5,16 @@ use lol_alloc::{FreeListAllocator, LockedAllocator};
 
 #[cfg(client)]
 #[global_allocator]
-static ALLOCATOR: LockedAllocator<FreeListAllocator> = LockedAllocator::new(FreeListAllocator::new());
+static ALLOCATOR: LockedAllocator<FreeListAllocator> =
+    LockedAllocator::new(FreeListAllocator::new());
 
 mod components;
 mod error_views;
+mod layouts;
 mod templates;
 
 use perseus::prelude::*;
+use std::fs;
 use sycamore::prelude::view;
 
 #[perseus::main_export]
@@ -29,10 +32,13 @@ pub fn main<G: Html>() -> PerseusApp<G> {
                         // fonts
                         link (rel="preconnect", href="https://fonts.googleapis.com")
                         link (rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
-                        link (href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Orbitron:wght@400;700&display=swap", rel="stylesheet")
+                        link (rel="preload", href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Orbitron:wght@400;700&display=swap", as="style", onload="this.onload=null;this.rel='stylesheet'")
                         // styles
-                        link(rel="stylesheet", href=".perseus/static/styles/base.css")
-                        link(rel="stylesheet", href=".perseus/static/styles/loader.css")
+                        style { (fs::read_to_string("static/styles/base.css").expect("Cannot read base.css")) }
+                        // No scripts alternative
+                        noscript {
+                            link (href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Orbitron:wght@400;700&display=swap", rel="stylesheet")
+                        }
                     }
                     body {
                         // Quirk: this creates a wrapper `<div>` around the root `<div>` by necessity

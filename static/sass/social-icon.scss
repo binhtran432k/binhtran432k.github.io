@@ -1,0 +1,39 @@
+.icon {
+  position: relative;
+
+  span {
+    width: 1em;
+    height: 1em;
+    /* Add dimensions to span */
+    display: inline-block;
+    /* Add background color */
+    background-color: currentColor;
+    /* Add mask image, use variable to reduce duplication */
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  &--linkedin {
+    --svg: url('.perseus/static/assets/svg/linkedin.svg');
+  }
+
+  &--github {
+    --svg: url('.perseus/static/assets/svg/github.svg');
+  }
+
+  &--instagram {
+    --svg: url('.perseus/static/assets/svg/instagram.svg');
+  }
+
+  &--facebook {
+    --svg: url('.perseus/static/assets/svg/facebook.svg');
+  }
+
+  &--youtube {
+    --svg: url('.perseus/static/assets/svg/youtube.svg');
+  }
+}

@@ -1,13 +1,17 @@
+use std::fs;
+
 use sycamore::prelude::*;
 
 #[component]
-pub fn Layout<'a, G: Html>(cx: Scope<'a>, LayoutProps { children }: LayoutProps<'a, G>) -> View<G> {
-    let children = children.call(cx);
-
-    view! { cx,
+pub fn Loader<G: Html>(cx: Scope) -> View<G> {
+    view! {cx,
         div(class="loader") {
+            style { (fs::read_to_string("static/styles/loader.css").expect("Cannot read loader.css")) }
             div(class="loader__box") {
-                img(src=".perseus/static/assets/images/mangekyou-sharingan.svg", alt="Loader image", class="loader__image")
+                img(src=".perseus/static/assets/images/mangekyou-sharingan.svg",
+                    loading="lazy",
+                    alt="Loader image",
+                    class="loader__image")
                 div(class="loader__text") {
                     "L"
                     div(class="loader__text--dot")
@@ -22,15 +26,7 @@ pub fn Layout<'a, G: Html>(cx: Scope<'a>, LayoutProps { children }: LayoutProps<
                     span(class="loader__counter--number") {"0%"}
                 }
             }
-            script(src=".perseus/static/scripts/loader.js", defer=true)
         }
-        main {
-            (children)
-        }
+        script { (fs::read_to_string("static/scripts/loader.js").expect("Cannot read loader.js")) }
     }
-}
-
-#[derive(Prop)]
-pub struct LayoutProps<'a, G: Html> {
-    pub children: Children<'a, G>,
 }

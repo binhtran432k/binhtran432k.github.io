@@ -1,8 +1,7 @@
+@import "_variables";
+
 .loader {
-  $green: #6cff8d;
-  $green-50: rgba($green, 0.4);
-  $fg: #fff;
-  $bg: #0b134f;
+  $size: min(500px, 100vw, 100vh);
   position: fixed;
   top: 0;
   right: 0;
@@ -26,7 +25,7 @@
 
   &__box {
     position: relative;
-    max-width: 500px;
+    max-width: $size;
     width: 90%;
     padding: 1rem;
     border: 0.1875rem solid $green;
@@ -44,12 +43,12 @@
 
       50% {
         border-radius: 50%;
-        min-height: min(500px, 100vw);
+        min-height: $size;
       }
 
       100% {
         border-radius: 50%;
-        min-height: min(500px, 100vw);
+        min-height: $size;
         border-color: transparent;
       }
     }
@@ -59,7 +58,7 @@
     width: 90%;
     height: 0.625rem;
     margin: 2rem auto 3rem auto;
-    background-color: #ccc;
+    background-color: $fg-50;
 
     &--inner {
       width: 0;
@@ -163,37 +162,38 @@
     width: 85%;
     height: auto;
     opacity: 0;
-    filter: hue-rotate(310deg);
   }
 
-  &--loaded &__image {
-    animation: image-amination 70s forwards;
+  @media (min-width: 500px) and (min-height: 500px) {
+    &--loaded &__image {
+      animation: image-amination 1.2s ease-out forwards;
 
-    @keyframes image-amination {
-      0% {
-        opacity: 0;
-      }
+      @keyframes image-amination {
+        0% {
+          opacity: 0;
+        }
 
-      2% {
-        opacity: 1;
-        rotate: -60deg;
-      }
-
-      100% {
-        opacity: 1;
-        rotate: -720deg;
+        100% {
+          opacity: 1;
+          rotate: -180deg;
+          filter: hue-rotate(-70deg);
+        }
       }
     }
   }
 
   &--loaded {
     animation: loaded-animation 600ms forwards;
-    animation-delay: 600ms;
+
+    @media (min-width: 500px) and (min-height: 500px) {
+      animation-delay: 600ms;
+    }
 
     @keyframes loaded-animation {
       to {
         background-color: transparent;
-        opacity: 0.3;
+        opacity: 0;
+        display: none;
       }
     }
   }
