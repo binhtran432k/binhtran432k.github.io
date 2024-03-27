@@ -1,0 +1,13 @@
+$green: #6cff8d;
+$red: #FF5555;
+$yellow: #F1FA8C;
+$purple: #BD93F9;
+$cyan: #8BE9FD;
+$orange: #FFB86C;
+$pink: #FF79C6;
+$blue: mix($cyan, blue, $weight: 50%);
+$fg: #F8F8F2;
+$bg: #282A36;
+$green-50: rgba($green, 0.4);
+$fg-50: rgba($fg, 0.4);
+$bg-50: rgba($bg, 50%);

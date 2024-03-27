@@ -1,17 +1,15 @@
 use perseus::prelude::*;
 use sycamore::prelude::*;
 
-use crate::components::layout::Layout;
+use crate::{
+    components::landing::Landing,
+    layouts::index::{Index, IndexHead},
+};
 
 fn index_page<G: Html>(cx: Scope) -> View<G> {
     view! { cx,
-        Layout {
-            h1 { "Welcome to Perseus!" }
-            p {
-                "This is just an example app. Try changing some code inside "
-                code { "src/templates/index.rs" }
-                " and you'll be able to see the results here!"
-            }
+        Index {
+            Landing
         }
     }
 }
@@ -20,6 +18,7 @@ fn index_page<G: Html>(cx: Scope) -> View<G> {
 fn head(cx: Scope) -> View<SsrNode> {
     view! { cx,
         title { "BINH TRAN - Fullstack Developer" }
+        IndexHead
     }
 }
 

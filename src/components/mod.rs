@@ -1,2 +1,9 @@
-pub mod layout;
+pub mod cool_link;
+pub mod header;
+pub mod intro;
+pub mod landing;
+pub mod loader;
+pub mod scroll_down;
 pub mod seo;
+pub mod social;
+pub mod social_link;
