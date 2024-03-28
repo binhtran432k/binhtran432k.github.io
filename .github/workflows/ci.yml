@@ -7,46 +7,11 @@ on:
 
 jobs:
   build_and_test:
-    env:
-      PERSEUS_VERSION: 0.4.0
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout respository
         uses: actions/checkout@v4
-
-      - name: Install rust toolchain
-        run: |
-          rustup update --no-self-update ${{ env.RUST_CHANNEL }}
-          rustup default ${{ env.RUST_CHANNEL }}
-        env:
-          RUST_CHANNEL: nightly
-
-      - name: Cache cargo binaries
-        uses: actions/cache@v4
-        id: cache
-        with:
-          path: |
-            ~/.cargo/bin/
-          # The cache should be OS-specific
-          key: ${{ runner.os }}-website-cargo-bins-$PERSEUS_VERSION
-
-      # Only install the binaries if the cache doesn't have them
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: cargo install perseus-cli --version $PERSEUS_VERSION
-
-      - name: Cache local build
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v1
@@ -58,13 +23,15 @@ jobs:
           path: |
             node_modules/
           key: ${{ runner.os }}-node-${{ hashFiles('bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-node
 
       - name: Install bun dependencies
         if: steps.bun-cache.outputs.cache-hit != 'true'
         run: bun install --frozen-lockfile
 
-      - name: Check build sass
-        run: bun run deploy:sass
+      - name: Check format
+        run: bun run fmt.check
 
-      - name: Check build static
-        run: bun run check
+      - name: Check lint
+        run: bun run lint
