@@ -27,7 +27,6 @@ jobs:
             ${{ runner.os }}-node
 
       - name: Install bun dependencies
-        if: steps.bun-cache.outputs.cache-hit != 'true'
         run: bun install --frozen-lockfile
 
       - name: Check format

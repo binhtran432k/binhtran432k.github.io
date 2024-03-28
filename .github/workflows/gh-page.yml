@@ -39,14 +39,10 @@ jobs:
             ${{ runner.os }}-node
 
       - name: Install bun dependencies
-        if: steps.bun-cache.outputs.cache-hit != 'true'
         run: bun install --frozen-lockfile
 
       - name: Build
         run: bun run build
-
-      - name: Build SSG
-        run: bun run build.server
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
