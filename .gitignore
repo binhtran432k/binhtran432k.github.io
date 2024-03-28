@@ -3,8 +3,6 @@
 /lib
 /lib-types
 /server
-/target
-/pkg
 
 # Development
 node_modules
@@ -41,7 +39,3 @@ lerna-debug.log*
 # Yarn
 .yarn/*
 !.yarn/releases
-
-# Static css
-/static/styles/*.css
-/static/styles/*.css.map

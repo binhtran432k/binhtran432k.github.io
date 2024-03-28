@@ -16,8 +16,6 @@ concurrency:
 
 jobs:
   build:
-    env:
-      PERSEUS_VERSION: 0.4.0
     name: Build Static Site Generation
     runs-on: ubuntu-latest
     steps:
@@ -26,39 +24,6 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
-
-      - name: Install rust toolchain
-        run: |
-          rustup update --no-self-update ${{ env.RUST_CHANNEL }}
-          rustup default ${{ env.RUST_CHANNEL }}
-        env:
-          RUST_CHANNEL: nightly
-
-      - name: Cache cargo binaries
-        uses: actions/cache@v4
-        id: cache
-        with:
-          path: |
-            ~/.cargo/bin/
-          # The cache should be OS-specific
-          key: ${{ runner.os }}-website-cargo-bins-$PERSEUS_VERSION
-
-      # Only install the binaries if the cache doesn't have them
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: cargo install perseus-cli --version $PERSEUS_VERSION
-
-      - name: Cache local build
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v1
@@ -70,18 +35,23 @@ jobs:
           path: |
             node_modules/
           key: ${{ runner.os }}-node-${{ hashFiles('bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-node
 
       - name: Install bun dependencies
         if: steps.bun-cache.outputs.cache-hit != 'true'
         run: bun install --frozen-lockfile
 
-      - name: Build using Perseus
-        run: bun run deploy
+      - name: Build
+        run: bun run build
+
+      - name: Build SSG
+        run: bun run build.server
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./pkg/
+          path: ./dist/
 
   deploy:
     name: Deploy Github Pages
