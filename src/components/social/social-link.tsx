@@ -1,8 +1,8 @@
-import { type JSXNode, component$ } from "@builder.io/qwik";
+import { component$, type JSXOutput } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 
 export default component$(
-  ({ label, href, icon }: { label: string; href: string; icon: JSXNode }) => {
+  ({ label, href, icon }: { label: string; href: string; icon: JSXOutput }) => {
     return (
       <div class="group relative flex place-items-center">
         <span class="absolute left-0 top-0 origin-[38%48%] text-info group-hover:animate-spin group-hover:[animation-duration:200ms]">
