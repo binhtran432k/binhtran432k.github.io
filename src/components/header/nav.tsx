@@ -7,7 +7,7 @@ export default component$(() => {
       <ul class="flex flex-wrap items-center gap-4 md:gap-8 md:px-2">
         {(
           [
-            ["#", "Home"],
+            ["/", "Home"],
             ["#", "Reviews"],
             ["#", "Projects"],
             ["#", "Insights"],
