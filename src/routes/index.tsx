@@ -1,11 +1,13 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import Landing from "~/components/landing/landing";
+import Skill from "~/components/skill/skill";
 
 export default component$(() => {
   return (
     <>
       <Landing />
+      <Skill />
     </>
   );
 });

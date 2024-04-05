@@ -10,13 +10,17 @@ export default {
       secondary: colors.pink["500"],
       success: colors.green["500"],
       danger: colors.red["500"],
-      warning: colors.yellow["500"],
+      warning: colors.yellow["300"],
       info: colors.cyan["500"],
-      foreground: colors.gray["50"],
-      background: colors.gray["950"],
+      light: colors.gray["50"],
+      dark: colors.gray["950"],
     },
     extend: {
       keyframes: {
+        move: {
+          "0%": { transform: "translate3d(0,0,0)" },
+          "100%": { transform: "translate3d(var(--tw-move,100%),0,0)" },
+        },
         deepPulse: {
           "0%, 100%": { opacity: 1 },
           "50%": { opacity: 0 },
@@ -34,6 +38,7 @@ export default {
         },
       },
       animation: {
+        move: "move 30s alternate linear infinite",
         deepPulse: "deepPulse 1s alternate infinite",
         deepBounce: "deepBounce 1s infinite",
         around: "around 1s infinite",

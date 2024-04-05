@@ -8,7 +8,7 @@ import ScrollDown from "../scroll-down/scroll-down";
 export default component$(() => {
   return (
     <div
-      class="relative flex h-[100vh] flex-col bg-cover bg-center [--bg-filter:theme(colors.background/50%)]"
+      class="relative flex min-h-screen flex-col bg-cover bg-center [--bg-filter:theme(colors.dark/50%)]"
       style={{
         backgroundImage: `linear-gradient(var(--bg-filter), var(--bg-filter)), url('${bgImg}')`,
       }}
