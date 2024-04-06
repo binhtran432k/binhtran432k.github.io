@@ -12,7 +12,7 @@ export default component$(() => {
           >
             {[
               "Web Development",
-              "Open-source Contributor",
+              "Open-source Contribution",
               "Frontend",
               "Backend",
               "Testing",
