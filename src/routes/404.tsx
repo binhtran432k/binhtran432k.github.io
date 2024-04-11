@@ -1,17 +1,16 @@
 import { component$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
-import bgImg from "~/assets/background.jpg";
+import BackgroundImage from "~/assets/background.jpg?jsx";
 import Header from "~/components/header/header";
 import Social from "~/components/social/social";
 
 export default component$(() => {
   return (
-    <div
-      class="relative flex min-h-screen flex-col bg-cover bg-center [--bg-filter:theme(colors.dark/50%)]"
-      style={{
-        backgroundImage: `linear-gradient(var(--bg-filter), var(--bg-filter)), url('${bgImg}')`,
-      }}
-    >
+    <div class="relative flex min-h-screen flex-col">
+      <BackgroundImage
+        class="absolute left-0 top-0 z-[-1] h-full w-full object-cover brightness-50"
+        alt="Background"
+      />
       <Header />
       <div class="flex grow flex-col flex-wrap justify-between px-4">
         <div class="container m-auto text-center">
