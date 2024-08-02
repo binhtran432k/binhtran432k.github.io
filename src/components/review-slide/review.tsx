@@ -9,7 +9,7 @@ export interface ReviewData {
 
 export default component$(({ review }: { review: ReviewData }) => {
   return (
-    <section class="review flex gap-1 px-2">
+    <article class="review flex gap-1 px-2">
       <div class="font-serif text-6xl text-secondary">&ldquo;</div>
       <div class="flex flex-col border-t-[1px] border-t-light pt-6">
         <div class="flex items-start gap-2">
@@ -28,6 +28,6 @@ export default component$(({ review }: { review: ReviewData }) => {
           <div class="review__job">{review.job}</div>
         </div>
       </div>
-    </section>
+    </article>
   );
 });

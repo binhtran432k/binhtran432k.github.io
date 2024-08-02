@@ -1,5 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import CoolButton from "./cool-button";
+import CoolButton from "../cool-button/cool-button";
 import Nav from "./nav";
 
 export default component$(() => {
