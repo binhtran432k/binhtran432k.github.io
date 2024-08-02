@@ -2,6 +2,7 @@ import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import GhStats from "~/components/gh-stats/gh-stats";
 import Landing from "~/components/landing/landing";
+import ReviewSlide from "~/components/review-slide/review-slide";
 import Skill from "~/components/skill/skill";
 
 export default component$(() => {
@@ -10,6 +11,7 @@ export default component$(() => {
       <Landing />
       <Skill />
       <GhStats />
+      <ReviewSlide />
     </>
   );
 });

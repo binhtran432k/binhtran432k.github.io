@@ -13,6 +13,7 @@ export default {
       warning: colors.yellow["300"],
       info: colors.cyan["500"],
       light: colors.gray["50"],
+      gray: colors.gray["500"],
       dark: colors.gray["950"],
     },
     extend: {
