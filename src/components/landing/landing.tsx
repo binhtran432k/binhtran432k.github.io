@@ -1,6 +1,6 @@
 import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import backgroundImage from "~/assets/background.jpg";
-import coolBackground from "~/utils/cool-background";
+import { coolBackground } from "~/utils/cool-background";
 import Header from "../header/header";
 import Intro from "../intro/intro";
 import ScrollDown from "../scroll-down/scroll-down";
