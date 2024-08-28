@@ -1,12 +1,12 @@
 import * as THREE from "three";
 
-export default function (container: Element, image: string) {
+export function coolBackground(container: Element, image: string) {
   const scene = new THREE.Scene();
   const loader = new THREE.TextureLoader();
   const camera = new THREE.PerspectiveCamera(70, getCameraAspect(), 0.1, 1000);
 
   const renderer = new THREE.WebGLRenderer({
-    antialias: true,
+    antialias: false,
   });
 
   handleSetRendererSize(renderer);
@@ -48,7 +48,8 @@ function animate(opts: {
   opts.renderer.render(opts.scene, opts.camera);
 }
 
-const MAX_FRAME = 30;
+const MAX_FRAME = 60;
+const TIME_FACTOR = MAX_FRAME / 4;
 const waveEffects: number[][] = [];
 function calculateWaveEffects(geometry: THREE.PlaneGeometry, count: number) {
   for (let frame = 0; frame < MAX_FRAME; frame++) {
@@ -71,7 +72,7 @@ function animateWaveEffect(
   time: number,
   count: number,
 ) {
-  const frame = Math.round(time * 8) % MAX_FRAME;
+  const frame = Math.round(time * TIME_FACTOR) % MAX_FRAME;
   if (oldFrame === frame) {
     return;
   }
