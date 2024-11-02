@@ -1,4 +1,4 @@
-name: Build & Test
+name: Continuous Integration
 on:
   pull_request:
   push:
@@ -7,30 +7,20 @@ on:
 
 jobs:
   build_and_test:
-    name: Build and Test
+    name: Lint and Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout respository
         uses: actions/checkout@v4
 
       - name: Set up Bun
-        uses: oven-sh/setup-bun@v1
-
-      - name: Cache node modules
-        id: bun-cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules/
-          key: ${{ runner.os }}-node-${{ hashFiles('bun.lockb') }}
-          restore-keys: |
-            ${{ runner.os }}-node
+        uses: oven-sh/setup-bun@v2
 
       - name: Install bun dependencies
         run: bun install --frozen-lockfile
 
-      - name: Check format
-        run: bun run fmt.check
-
       - name: Check lint
         run: bun run lint
+
+      - name: Check build
+        run: bun run build
