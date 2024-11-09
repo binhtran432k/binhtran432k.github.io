@@ -1,0 +1,50 @@
+/* Custom Fonts */
+@font-face {
+	font-family: noirEtBlanc;
+	src: url("/fonts/noir_et_blanc.woff2");
+}
+
+/* Intro */
+.intro {
+	margin: auto;
+	max-width: var(--container-max-width);
+	padding: 1rem var(--container-padding-x);
+	font-family: noirEtBlanc, sans-serif;
+	letter-spacing: 0.12em;
+}
+
+.intro > *:not(:last-child) {
+	margin-bottom: 0.3em;
+}
+
+.intro .waving-hand {
+	color: var(--warn);
+	width: 1em;
+	height: 1em;
+	animation: wavingHand .8s infinite alternate;
+}
+
+/* Waving Hand Animation */
+@keyframes wavingHand {
+	0% {
+		transform: rotate(0);
+	}
+	30% {
+		transform: rotate(-30deg);
+	}
+	100% {
+		transform: rotate(0);
+	}
+}
+
+@media screen and (min-width: 600px) {
+	.intro {
+		font-size: 1.5rem;
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.intro {
+		font-size: 2rem;
+	}
+}

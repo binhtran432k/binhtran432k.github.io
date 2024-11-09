@@ -1,0 +1,54 @@
+/* Reset Styles */
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+/* Setup Root */
+:root {
+	/* RGB variables */
+	--warn-rgb: 241, 250, 140;
+	--danger-rgb: 255, 85, 85;
+	--success-rgb: 80, 250, 123;
+	--info-rgb: 139, 233, 253;
+	--primary-rgb: 189, 147, 249;
+	/* Colors variables */
+	--bg: #21222c;
+	--bg2: #282a36;
+	--fg: #f8f8f2;
+	--gray: #44475a;
+	--warn: rgb(var(--warn-rgb));
+	--danger: rgb(var(--danger-rgb));
+	--success: rgb(var(--success-rgb));
+	--info: rgb(var(--info-rgb));
+	--primary: rgb(var(--primary-rgb));
+	--secondary: #ff79c6;
+	--tertiary: #ffb86c;
+	/* Misc variables */
+	--container-padding-x: .5rem;
+	--container-max-width: 1200px;
+
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+	background-color: rgba(var(--primary-rgb), 0.5);
+}
+
+html {
+	background-color: var(--bg);
+	color: var(--fg);
+}
+
+@media only screen and (min-width: 600px) {
+	:root {
+		--container-padding-x: 1rem;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	:root {
+		--container-padding-x: 2rem;
+	}
+}

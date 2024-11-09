@@ -1,0 +1,21 @@
+{
+	"name": "binhtran432k.github.io",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"ci": "biome ci",
+		"fix": "biome check --fix --unsafe",
+		"dev": "bun --hot scripts/server.ts",
+		"build": "bun scripts/ssg.ts",
+		"prepreview": "bun run build",
+		"preview": "bun scripts/preview.ts"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/bun": "^1.1.13",
+		"mini-van-plate": "^0.6.1"
+	},
+	"peerDependencies": {
+		"typescript": "^5.6.3"
+	}
+}
