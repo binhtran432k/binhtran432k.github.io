@@ -1,12 +1,11 @@
 import { env } from "mini-van-plate/shared";
 
-import { AsyncCss } from "../components/async-css.js";
-import { AsyncFont } from "../components/async-font.js";
-import { Intro } from "../components/intro.js";
-import type { MyPage } from "../index.js";
-import { minifyCss } from "../utils/css.js";
+import { Header } from "~/components/header";
+import { Intro } from "~/components/intro.js";
+import type { MyPage } from "~/index.js";
 
-import coreLandingCss from "../styles/core-landing.css" with { type: "text" };
+import coolButtonCss from "~styles/cool-button.css" with { type: "text" };
+import coreLandingCss from "~styles/core-landing.css" with { type: "text" };
 
 export const landingPage: MyPage = {
 	title: "BINH TRAN - Self Studied Developer",
@@ -28,16 +27,10 @@ export const landingPage: MyPage = {
 		"lsp",
 	],
 	author: "Binh Tran",
-	getExtraHead: () => {
-		const { style } = env.van.tags;
-		return [
-			AsyncFont({ href: "/fonts/noir_et_blanc.woff2" }),
-			style(minifyCss(coreLandingCss)),
-			AsyncCss({ href: "/styles/landing.css" }),
-		];
-	},
+	styles: [coreLandingCss.trim(), coolButtonCss.trim()],
+	asyncCsses: ["/styles/landing.css"],
 	getChild: () => {
 		const { main } = env.van.tags;
-		return main(Intro());
+		return main({ id: "home", class: "landing" }, Header(), Intro());
 	},
 };

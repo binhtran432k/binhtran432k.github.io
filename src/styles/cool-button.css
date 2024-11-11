@@ -1,0 +1,41 @@
+.cool-button {
+	position: relative;
+	text-decoration: none;
+	font-size: 0.875em;
+	color: var(--gray);
+	padding: 1rem 2rem;
+}
+
+.cool-button::before,
+.cool-button::after {
+	position: absolute;
+	top: 5%;
+	left: 12%;
+	content: "";
+	width: 75%;
+	height: 90%;
+	z-index: -1;
+	transition: .3s;
+	transition-timing-function: cubic-bezier(0.5, 2.5, 0.5, 0.5);
+}
+
+.cool-button::before {
+	transform: rotate(-10deg);
+	background-color: var(--primary);
+	border-radius: 58% 42% 55% 45% / 56% 45% 55% 44%;
+}
+
+.cool-button::after {
+	transform: rotate(20deg);
+	background-color: var(--fg);
+	border-radius: 58% 42% 55% 48% / 56% 45% 60% 44%;
+}
+
+.cool-button:hover::after {
+	transform: rotate(0) translateX(2%);
+	border-radius: 46% 54% 58% 42% / 48% 35% 65% 52%;
+}
+
+.cool-button:hover::before {
+	transform: rotate(0) translate(2%, 12%);
+}

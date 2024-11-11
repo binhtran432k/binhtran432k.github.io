@@ -1,34 +1,55 @@
-import { fetchSite } from "../src/index.js";
-import { minifyCss } from "../src/utils/css.js";
+import { readdir } from "node:fs/promises";
+
+// Imports for watch only
+import "~/styles/cool-button.css";
+import "~/styles/core-header.css";
+import "~/styles/core-landing.css";
+import "~/styles/core.css";
+import "~/styles/landing.css";
 
 // Init dist folder
 await Bun.$`rm -rf dist`;
 await Bun.$`mkdir dist`;
-await Bun.$`mkdir dist/styles`;
+
+await Promise.all([
+	// Build Clients
+	buildScripts(),
+	buildStyles(),
+]);
+
+const { fetchSite } = await import("~/index.js");
 
 await Promise.all([
 	// Copy public
 	Bun.$`cp -r public/* dist`,
-	// Write Styles
-	writeStyle("landing.css"),
 	// Write Sites
 	writeSite("/"),
 	Bun.write("dist/404.html", fetchSite(null).content),
 ]);
-
-async function writeStyle(filename: string): Promise<number> {
-	return await Bun.file(`src/styles/${filename}`)
-		.text()
-		.then((val) =>
-			Bun.write(`dist/styles/${filename}`, minifyCss(val), {
-				createPath: true,
-			}),
-		);
-}
 
 async function writeSite(pathname: string): Promise<number> {
 	return await Bun.write(
 		`dist${pathname}index.html`,
 		fetchSite(pathname).content,
 	);
+}
+
+export async function buildScripts() {
+	const files = await readdir("src/scripts");
+	await Bun.build({
+		entrypoints: files.map((f) => `src/scripts/${f}`),
+		outdir: "dist/scripts",
+		splitting: true,
+		minify: true,
+	});
+}
+
+export async function buildStyles() {
+	const files = await readdir("src/styles");
+	await Bun.build({
+		entrypoints: files.map((f) => `src/styles/${f}`),
+		outdir: "dist/styles",
+		experimentalCss: true,
+		minify: true,
+	});
 }

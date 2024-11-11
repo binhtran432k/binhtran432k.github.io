@@ -1,10 +1,12 @@
 import { registerEnv } from "mini-van-plate/shared";
 import van, { type ChildDom } from "mini-van-plate/van-plate";
 
-import { notFoundPage } from "./pages/404.js";
-import { landingPage } from "./pages/landing.js";
-import coreCss from "./styles/core.css" with { type: "text" };
-import { minifyCss } from "./utils/css.js";
+import { AsyncCss } from "~/components/async-css.js";
+import { notFoundPage } from "~/pages/404.js";
+import { landingPage } from "~/pages/landing.js";
+
+import coreHeaderCss from "~styles/core-header.css" with { type: "text" };
+import coreCss from "~styles/core.css" with { type: "text" };
 
 const { head, title, body, meta, link, style } = van.tags;
 
@@ -25,12 +27,19 @@ export type MyPage = {
 	keywords?: string[];
 	author?: string;
 	status?: MySite["status"];
+	styles?: string[];
+	asyncCsses?: string[];
+	icons?: () => ChildDom;
 	getExtraHead?: () => ChildDom;
 	getChild?: () => ChildDom;
 };
 
 export function fetchSite(pathname: string | null): MySite {
 	const page = resolvePage(pathname);
+	const stylesRaw =
+		coreCss.trim() +
+		coreHeaderCss.trim() +
+		(page.styles ? page.styles.join("") : "");
 	const content = van.html(
 		{ lang: "en-us" },
 		head(
@@ -50,7 +59,8 @@ export function fetchSite(pathname: string | null): MySite {
 			page.author && meta({ name: "author", content: page.author }),
 
 			// Styles
-			style(minifyCss(coreCss)),
+			style(stylesRaw),
+			page.asyncCsses?.map((href) => AsyncCss({ href })),
 
 			// Extra Head Elements
 			page.getExtraHead?.(),

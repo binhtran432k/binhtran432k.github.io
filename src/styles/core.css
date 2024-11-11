@@ -8,25 +8,29 @@
 /* Setup Root */
 :root {
 	/* RGB variables */
+	--bg-rgb: 33, 34, 44;
+	--fg-rgb: 248, 248, 242;
 	--warn-rgb: 241, 250, 140;
 	--danger-rgb: 255, 85, 85;
 	--success-rgb: 80, 250, 123;
 	--info-rgb: 139, 233, 253;
 	--primary-rgb: 189, 147, 249;
+	--secondary-rgb: 255, 121, 198;
+	--tertiary-rgb: 255, 184, 108;
 	/* Colors variables */
-	--bg: #21222c;
+	--bg: rgb(var(--bg-rgb));
 	--bg2: #282a36;
-	--fg: #f8f8f2;
+	--fg: rgb(var(--fg-rgb));
 	--gray: #44475a;
 	--warn: rgb(var(--warn-rgb));
 	--danger: rgb(var(--danger-rgb));
 	--success: rgb(var(--success-rgb));
 	--info: rgb(var(--info-rgb));
 	--primary: rgb(var(--primary-rgb));
-	--secondary: #ff79c6;
-	--tertiary: #ffb86c;
+	--secondary: rgb(var(--secondary-rgb));
+	--tertiary: rgb(var(--tertiary-rgb));
 	/* Misc variables */
-	--container-padding-x: .5rem;
+	--container-padding-x: 1rem;
 	--container-max-width: 1200px;
 
 	font-family: Arial, Helvetica, sans-serif;
@@ -39,16 +43,17 @@
 html {
 	background-color: var(--bg);
 	color: var(--fg);
+	overflow-x: hidden;
 }
 
 @media only screen and (min-width: 600px) {
 	:root {
-		--container-padding-x: 1rem;
+		--container-padding-x: 2rem;
 	}
 }
 
 @media only screen and (min-width: 992px) {
 	:root {
-		--container-padding-x: 2rem;
+		--container-padding-x: 4rem;
 	}
 }

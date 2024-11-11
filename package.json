@@ -5,10 +5,9 @@
 	"scripts": {
 		"ci": "biome ci",
 		"fix": "biome check --fix --unsafe",
-		"dev": "bun --hot scripts/server.ts",
 		"build": "bun scripts/ssg.ts",
-		"prepreview": "bun run build",
-		"preview": "bun scripts/preview.ts"
+		"build:watch": "bun --watch scripts/ssg.ts",
+		"preview": "bun build:watch | bun scripts/preview.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
