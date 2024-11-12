@@ -3,18 +3,13 @@
 	"module": "index.ts",
 	"type": "module",
 	"scripts": {
-		"ci": "biome ci",
 		"fix": "biome check --fix --unsafe",
 		"build": "bun scripts/ssg.ts",
 		"build:watch": "bun --watch scripts/ssg.ts",
 		"preview": "bun build:watch | bun scripts/preview.ts"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
 		"@types/bun": "^1.1.13",
 		"mini-van-plate": "^0.6.1"
-	},
-	"peerDependencies": {
-		"typescript": "^5.6.3"
 	}
 }

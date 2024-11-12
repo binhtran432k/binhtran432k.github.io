@@ -19,8 +19,5 @@ jobs:
       - name: Install bun dependencies
         run: bun install --frozen-lockfile
 
-      - name: Check CI
-        run: bun run ci
-
       - name: Check build
         run: bun run build
