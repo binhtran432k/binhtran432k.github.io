@@ -8,6 +8,9 @@
 /* Setup Root */
 :root {
 	/* RGB variables */
+	--purple-rgb: 189, 147, 249;
+	--pink-rgb: 255, 121, 198;
+	--orange-rgb: 255, 184, 108;
 	--bg-rgb: 33, 34, 44;
 	--fg-rgb: 248, 248, 242;
 	--warn-rgb: 241, 250, 140;

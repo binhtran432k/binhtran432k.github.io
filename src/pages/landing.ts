@@ -27,7 +27,10 @@ export const landingPage: MyPage = {
 	],
 	author: "Binh Tran",
 	styles: [coreLandingCss.trim()],
-	asyncCsses: ["/styles/landing.css"],
+	asyncCsses: [
+		"/styles/landing.css",
+		"https://i.icomoon.io/public/temp/e9a02c2957/binhtran432k/style.css",
+	],
 	getChild: () => {
 		const { main } = env.van.tags;
 		return main({ id: "home", class: "landing" }, Header(), Intro());

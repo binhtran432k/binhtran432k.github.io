@@ -1,7 +1,7 @@
 import { env } from "mini-van-plate/shared";
 
 export const Header = () => {
-	const { header, div, a, span, nav } = env.van.tags;
+	const { header, div, a, input, label, span, nav } = env.van.tags;
 	return header(
 		{ class: "header" },
 		div(
@@ -12,6 +12,8 @@ export const Header = () => {
 				" ",
 				span({ class: "site" }, "Home"),
 			),
+			input({ type: "checkbox", id: "navbar-button" }),
+			label({ for: "navbar-button", class: "navbar-button" }),
 			nav(
 				{ class: "navbar" },
 				a({ href: "#home", class: "cool-link" }, span("Home")),

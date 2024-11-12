@@ -29,10 +29,9 @@
 		}
 	}
 
-	.waving-hand {
-		color: var(--warn);
-		width: 1em;
-		height: 1em;
+	.bi-waving-hand::before {
+		color: rgb(var(--orange-rgb));
+		display: inline-block;
 		animation: wavingHand .8s infinite alternate;
 	}
 
