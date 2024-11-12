@@ -5,20 +5,17 @@ export const Header = () => {
 	return header(
 		{ class: "header" },
 		div(
-			{ class: "header__container" },
+			{ class: "container" },
 			a(
-				{ href: "/", class: "header__logo" },
+				{ href: "/", class: "logo" },
 				"Binh",
 				" ",
-				span({ class: "header__site" }, "Home"),
+				span({ class: "site" }, "Home"),
 			),
 			nav(
 				{ class: "navbar" },
-				a(
-					{ href: "#home", class: "navbar__link navbar--active" },
-					span("Home"),
-				),
-				a({ href: "#education", class: "navbar__link" }, span("Education")),
+				a({ href: "#home", class: "cool-link" }, span("Home")),
+				a({ href: "#education", class: "cool-link" }, span("Education")),
 				a({ href: "#contact", class: "cool-button" }, span("Contact")),
 			),
 		),

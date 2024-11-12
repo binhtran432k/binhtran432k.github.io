@@ -1,7 +1,6 @@
 import { readdir } from "node:fs/promises";
 
 // Imports for watch only
-import "~/styles/cool-button.css";
 import "~/styles/core-header.css";
 import "~/styles/core-landing.css";
 import "~/styles/core.css";

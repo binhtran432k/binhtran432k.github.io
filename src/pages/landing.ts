@@ -4,7 +4,6 @@ import { Header } from "~/components/header";
 import { Intro } from "~/components/intro.js";
 import type { MyPage } from "~/index.js";
 
-import coolButtonCss from "~styles/cool-button.css" with { type: "text" };
 import coreLandingCss from "~styles/core-landing.css" with { type: "text" };
 
 export const landingPage: MyPage = {
@@ -27,7 +26,7 @@ export const landingPage: MyPage = {
 		"lsp",
 	],
 	author: "Binh Tran",
-	styles: [coreLandingCss.trim(), coolButtonCss.trim()],
+	styles: [coreLandingCss.trim()],
 	asyncCsses: ["/styles/landing.css"],
 	getChild: () => {
 		const { main } = env.van.tags;
