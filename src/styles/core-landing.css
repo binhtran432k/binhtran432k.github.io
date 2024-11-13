@@ -47,6 +47,24 @@
 	}
 }
 
+.social {
+	text-align: center;
+	margin: auto;
+	margin-top: 3rem;
+	font-size: 1.5rem;
+	a {
+		display: inline-block;
+		margin: 0 .4em;
+		text-decoration: none;
+		span::before {
+			color: var(--fg);
+		}
+		span:hover::before {
+			animation: coolTextHover .2s infinite;
+		}
+	}
+}
+
 /* Waving Hand Animation */
 @keyframes wavingHand {
 	0% {
@@ -57,5 +75,23 @@
 	}
 	100% {
 		transform: rotate(0);
+	}
+}
+
+@keyframes coolTextHover {
+	0% {
+		text-shadow: -.2em -.2em var(--danger), .2em -.2em var(--info);
+	}
+	25% {
+		text-shadow: .2em -.2em var(--danger), .1em 0 var(--info);
+	}
+	50% {
+		text-shadow: .1em 0 var(--danger), -.2em .1em var(--info);
+	}
+	75% {
+		text-shadow: -.1em .2em var(--danger), -.2em -.2em var(--info);
+	}
+	100% {
+		text-shadow: -.2em -.2em var(--danger), .2em -.2em var(--info);
 	}
 }
