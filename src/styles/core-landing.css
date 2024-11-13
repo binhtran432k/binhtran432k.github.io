@@ -19,6 +19,7 @@
 	font-family: noirEtBlanc, sans-serif;
 	letter-spacing: 0.12em;
 	gap: 0.3em;
+	user-select: none;
 
 	@media only screen {
 		@media (min-width: 600px) {

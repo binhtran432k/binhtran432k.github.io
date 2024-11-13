@@ -17,9 +17,8 @@
 	--danger-rgb: 255, 85, 85;
 	--success-rgb: 80, 250, 123;
 	--info-rgb: 139, 233, 253;
-	--primary-rgb: 189, 147, 249;
-	--secondary-rgb: 255, 121, 198;
-	--tertiary-rgb: 255, 184, 108;
+	--primary-rgb: var(--purple-rgb);
+	--secondary-rgb: var(--pink-rgb);
 	/* Colors variables */
 	--bg: rgb(var(--bg-rgb));
 	--bg2: #282a36;
@@ -31,7 +30,6 @@
 	--info: rgb(var(--info-rgb));
 	--primary: rgb(var(--primary-rgb));
 	--secondary: rgb(var(--secondary-rgb));
-	--tertiary: rgb(var(--tertiary-rgb));
 	/* Misc variables */
 	--container-padding-x: 1rem;
 	--container-max-width: 1200px;
@@ -63,6 +61,7 @@ html {
 	display: inline-block;
 	overflow-x: hidden;
 	color: var(--fg);
+	padding-bottom: .1em;
 	text-decoration: none;
 	&::before {
 		content: "";
@@ -70,7 +69,7 @@ html {
 		left: 0;
 		bottom: 0;
 		width: 100%;
-		height: 10%;
+		height: .1em;
 		transform: scaleX(0);
 		background-color: currentColor;
 		transform-origin: right;
@@ -81,6 +80,9 @@ html {
 		transition: .3s transform;
 		transition-timing-function: cubic-bezier(0.5, 0.5, 0.3, 1);
 	}
+	& span {
+		text-shadow: 10rem 0;
+	}
 	&:hover {
 		&::before {
 			transform: scaleX(1);
@@ -89,9 +91,6 @@ html {
 		span {
 			transform: translateX(-10rem);
 		}
-	}
-	& span {
-		text-shadow: 10rem 0;
 	}
 }
 

@@ -26,10 +26,9 @@
 		&:hover {
 			transform: scale(1.1);
 		}
-	}
-
-	.site {
-		color: var(--primary);
+		.site {
+			color: var(--primary);
+		}
 	}
 
 	.navbar {
