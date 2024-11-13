@@ -8,14 +8,17 @@ export const Intro = () => {
 	return div(
 		{ class: "intro" },
 		Background({ class: "background" }),
-		h3(
-			"Hi ",
-			span({ class: "bi-waving-hand", "aria-label": "there" }),
-			", My name is",
+		div(
+			{ class: "content" },
+			h3(
+				"Hi ",
+				span({ class: "bi-waving-hand", "aria-label": "there" }),
+				", My name is",
+			),
+			h1("BINH TRAN"),
+			h2("Self Studied Developer"),
+			h2("from Vietnam"),
 		),
-		h1("BINH TRAN"),
-		h2("Self Studied Developer"),
-		h2("from Vietnam"),
 		Social(),
 	);
 };

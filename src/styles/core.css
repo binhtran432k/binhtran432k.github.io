@@ -3,6 +3,9 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	text-decoration: none;
+	border: none;
+	outline: none;
 }
 
 /* Setup Root */
@@ -47,7 +50,9 @@
 }
 
 ::selection {
-	background-color: rgba(var(--primary-rgb), 0.5);
+	text-shadow: .06em .06em .1em #0000007f;
+	color: var(--fg);
+	background-color: var(--primary);
 }
 
 html {
@@ -62,7 +67,6 @@ html {
 	overflow-x: hidden;
 	color: var(--fg);
 	padding-bottom: .1em;
-	text-decoration: none;
 	&::before {
 		content: "";
 		position: absolute;
@@ -77,7 +81,7 @@ html {
 	& span,
 	&::before {
 		display: inline-block;
-		transition: .3s transform;
+		transition: transform .3s;
 		transition-timing-function: cubic-bezier(0.5, 0.5, 0.3, 1);
 	}
 	& span {
@@ -96,7 +100,6 @@ html {
 
 .cool-button {
 	position: relative;
-	text-decoration: none;
 	font-size: 0.875em;
 	color: var(--gray);
 	padding: 1.25em;

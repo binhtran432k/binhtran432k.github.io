@@ -12,22 +12,25 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-evenly;
 	margin: auto;
 	max-width: var(--container-max-width);
+	min-height: calc(100vh - 6rem);
 	padding: 3rem var(--container-padding-x);
-	font-family: noirEtBlanc, sans-serif;
-	letter-spacing: 0.12em;
-	gap: 0.3em;
+	font-size: 1.25rem;
+	overflow: hidden;
 	user-select: none;
 
 	@media only screen {
-		@media (min-width: 600px) {
-			font-size: 1.5rem;
-		}
-		@media (min-width: 992px) {
+		@media (min-width: 768px) {
 			font-size: 2rem;
 		}
+	}
+
+	.content {
+		font-family: noirEtBlanc, sans-serif;
+		line-height: 1.5;
+		letter-spacing: .12em;
 	}
 
 	.bi-waving-hand::before {
@@ -38,10 +41,11 @@
 
 	.background {
 		position: absolute;
-		left: 0;
-		top: 0;
-		object-fit: cover;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
 		width: 100%;
+		min-width: 1080px;
 		height: 100%;
 		z-index: -1;
 	}
@@ -49,7 +53,6 @@
 
 .social {
 	text-align: center;
-	margin: auto;
 	margin-top: 3rem;
 	font-size: 1.5rem;
 	a {

@@ -18,7 +18,6 @@
 
 	.logo {
 		color: var(--fg);
-		text-decoration: none;
 		transition: .3s ease;
 		font-size: 1.375rem;
 		font-weight: bold;
@@ -43,7 +42,7 @@
 		font-size: 1.125rem;
 		border-radius: 0 0 .5rem .5rem;
 		padding: 2rem 1rem;
-		transition: .3s transform;
+		transition: transform .3s;
 		transform-origin: top;
 		gap: 2rem;
 		transform: scaleY(0);
@@ -58,7 +57,7 @@
 			font-family: binhtran432k !important;
 			font-size: 1.5rem;
 			content: "";
-			transition: .3s transform;
+			transition: transform .3s;
 			display: inline-block;
 		}
 		#navbar-button:checked ~ &::before {

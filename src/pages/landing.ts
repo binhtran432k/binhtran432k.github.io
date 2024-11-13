@@ -29,7 +29,7 @@ export const landingPage: MyPage = {
 	styles: [coreLandingCss.trim()],
 	asyncCsses: [
 		"/styles/landing.css",
-		"https://i.icomoon.io/public/temp/e9a02c2957/binhtran432k/style.css",
+		"https://i.icomoon.io/public/temp/0f83d36c39/binhtran432k/style.css",
 	],
 	getChild: () => {
 		const { main } = env.van.tags;

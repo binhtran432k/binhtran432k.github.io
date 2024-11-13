@@ -40,7 +40,7 @@ export const Background = (props?: Record<string, unknown>) => {
 		g(
 			{
 				transform: `translate(${size.width / 2},${size.height / 2})`,
-				opacity: 0.6,
+				opacity: 0.4,
 			},
 			circle({ r: circles.sizeA, fill: `${colors.primary}2F` }),
 			path({
