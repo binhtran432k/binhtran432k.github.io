@@ -5,8 +5,8 @@ import { AsyncCss } from "~/components/async-css.js";
 import { notFoundPage } from "~/pages/404.js";
 import { landingPage } from "~/pages/landing.js";
 
-import coreHeaderCss from "~styles/core-header.css" with { type: "text" };
 import coreCss from "~styles/core.css" with { type: "text" };
+import headerCss from "~styles/header.css" with { type: "text" };
 
 const { head, title, body, meta, link, style } = van.tags;
 
@@ -38,7 +38,7 @@ export function fetchSite(pathname: string | null): MySite {
 	const page = resolvePage(pathname);
 	const stylesRaw =
 		coreCss.trim() +
-		coreHeaderCss.trim() +
+		headerCss.trim() +
 		(page.styles ? page.styles.join("") : "");
 	const content = van.html(
 		{ lang: "en-us" },

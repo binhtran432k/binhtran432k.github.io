@@ -6,7 +6,7 @@ import { Social } from "./social.js";
 export const Intro = () => {
 	const { div, h1, h2, h3, span } = env.van.tags;
 	return div(
-		{ class: "intro" },
+		{ class: "intro container" },
 		Background({ class: "background" }),
 		div(
 			{ class: "content" },

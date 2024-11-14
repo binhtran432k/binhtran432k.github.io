@@ -17,7 +17,7 @@ export const Header = () => {
 			nav(
 				{ class: "navbar" },
 				a({ href: "#home", class: "cool-link" }, span("Home")),
-				a({ href: "#education", class: "cool-link" }, span("Education")),
+				a({ href: "#skill", class: "cool-link" }, span("Skill")),
 				a({ href: "#contact", class: "cool-button" }, span("Contact")),
 			),
 		),

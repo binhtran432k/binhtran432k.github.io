@@ -1,0 +1,41 @@
+.skill {
+	position: relative;
+	background-color: var(--bg2);
+	padding: 1rem;
+	/* Hack skip menubar size */
+	#skill {
+		position: absolute;
+		top: -4rem;
+	}
+	h3 {
+		font-size: 1.5rem;
+		text-align: center;
+		margin-top: 1rem;
+	}
+	div {
+		overflow: hidden;
+	}
+	p {
+		opacity: 0.9;
+		font-size: 1.25rem;
+		white-space: nowrap;
+		margin: 1rem;
+		will-change: transform;
+		width: fit-content;
+		animation: marquee 40s alternate linear infinite;
+		&:nth-child(even) {
+			animation-direction: alternate-reverse;
+		}
+	}
+	span {
+		margin: 0 .8rem;
+	}
+}
+
+@keyframes marquee {
+	to {
+		transform: translateX(
+			calc(-100% + min(100vw, var(--container-max-width)) - 4rem)
+		);
+	}
+}

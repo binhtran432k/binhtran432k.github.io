@@ -86,6 +86,11 @@ html {
 	}
 }
 
+.container {
+	margin: auto;
+	max-width: var(--container-max-width);
+}
+
 .cool-link {
 	position: relative;
 	display: inline-block;

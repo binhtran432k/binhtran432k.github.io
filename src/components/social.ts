@@ -15,6 +15,8 @@ export const Social = () => {
 		{ class: "social" },
 		Object.entries(socials)
 			.filter(([, x]) => Boolean(x))
-			.map(([label, href]) => a({ href, target: "_blank" }, span({ class: `bi-${label}` }))),
+			.map(([label, href]) =>
+				a({ href, target: "_blank" }, span({ class: `bi-${label}` })),
+			),
 	);
 };

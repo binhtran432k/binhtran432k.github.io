@@ -1,10 +1,10 @@
 import { readdir } from "node:fs/promises";
 
 // Imports for watch only
-import "~/styles/core-header.css";
-import "~/styles/core-landing.css";
-import "~/styles/core.css";
+import "~/styles/header.css";
 import "~/styles/landing.css";
+import "~/styles/core.css";
+import "~/styles/lazy-landing.css";
 
 // Init dist folder
 await Bun.$`rm -rf dist`;
