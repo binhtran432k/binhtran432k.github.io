@@ -17,7 +17,8 @@ export const Header = () => {
 			nav(
 				{ class: "navbar" },
 				a({ href: "#home", class: "cool-link" }, span("Home")),
-				a({ href: "#skill", class: "cool-link" }, span("Skill")),
+				a({ href: "#skill", class: "cool-link" }, span("Skills")),
+				a({ href: "#github-profile", class: "cool-link" }, span("Github Profile")),
 				a({ href: "#contact", class: "cool-button" }, span("Contact")),
 			),
 		),

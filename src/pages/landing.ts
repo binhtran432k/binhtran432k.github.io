@@ -1,4 +1,5 @@
 import { env } from "mini-van-plate/shared";
+import { GithubProfile } from "~/components/github-profile";
 
 import { Header } from "~/components/header";
 import { Intro } from "~/components/intro.js";
@@ -30,10 +31,16 @@ export const landingPage: MyPage = {
 	styles: [landingCss.trim()],
 	asyncCsses: [
 		"/styles/lazy-landing.css",
-		"https://i.icomoon.io/public/temp/0f83d36c39/binhtran432k/style.css",
+		"https://i.icomoon.io/public/temp/df0177cc24/binhtran432k/style.css",
 	],
 	getChild: () => {
 		const { main } = env.van.tags;
-		return main({ id: "home", class: "landing" }, Header(), Intro(), Skill());
+		return main(
+			{ id: "home", class: "landing" },
+			Header(),
+			Intro(),
+			Skill(),
+			GithubProfile(),
+		);
 	},
 };
