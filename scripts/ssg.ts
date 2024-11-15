@@ -3,6 +3,7 @@ import { readdir } from "node:fs/promises";
 // Imports for watch only
 import "~/styles/header.css";
 import "~/styles/landing.css";
+import "~/styles/icon.css";
 import "~/styles/core.css";
 import "~/styles/lazy-landing.css";
 

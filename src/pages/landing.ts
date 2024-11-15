@@ -6,6 +6,7 @@ import { Intro } from "~/components/intro.js";
 import { Skill } from "~/components/skill.js";
 import type { MyPage } from "~/index.js";
 
+import iconCss from "~styles/icon.css" with { type: "text" };
 import landingCss from "~styles/landing.css" with { type: "text" };
 
 export const landingPage: MyPage = {
@@ -28,11 +29,8 @@ export const landingPage: MyPage = {
 		"lsp",
 	],
 	author: "Binh Tran",
-	styles: [landingCss.trim()],
-	asyncCsses: [
-		"/styles/lazy-landing.css",
-		"https://i.icomoon.io/public/temp/df0177cc24/binhtran432k/style.css",
-	],
+	styles: [landingCss.trim(), iconCss.trim()],
+	asyncCsses: ["/styles/lazy-landing.css"],
 	getChild: () => {
 		const { main } = env.van.tags;
 		return main(

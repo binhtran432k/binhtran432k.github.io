@@ -10,11 +10,7 @@ export const Intro = () => {
 		Background({ class: "background" }),
 		div(
 			{ class: "content" },
-			h3(
-				"Hi ",
-				span({ class: "bi-waving-hand", "aria-label": "there" }),
-				", My name is",
-			),
+			h3("Hi ", span({ class: "bi-waving-hand" }), ", My name is"),
 			h1("BINH TRAN"),
 			h2("Self Studied Developer"),
 			h2("from Vietnam"),
