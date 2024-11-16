@@ -1,4 +1,5 @@
 /* Hack skip menubar size */
+#about,
 #skill,
 #github-profile {
 	position: absolute;

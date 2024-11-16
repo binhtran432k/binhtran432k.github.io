@@ -12,11 +12,11 @@ export const Header = () => {
 				" ",
 				span({ class: "site" }, "Home"),
 			),
-			input({ type: "checkbox", id: "navbar-button" }),
-			label({ for: "navbar-button", class: "navbar-button" }),
+			input({ type: "checkbox", id: "navbar-toggle", style: "display:none;" }),
+			label({ for: "navbar-toggle", class: "navbar-toggle" }),
 			nav(
 				{ class: "navbar" },
-				a({ href: "#home", class: "cool-link" }, span("Home")),
+				a({ href: "#about", class: "cool-link" }, span("About")),
 				a({ href: "#skill", class: "cool-link" }, span("Skills")),
 				a(
 					{ href: "#github-profile", class: "cool-link" },

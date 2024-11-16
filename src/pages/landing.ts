@@ -1,8 +1,7 @@
 import { env } from "mini-van-plate/shared";
 import { GithubProfile } from "~/components/github-profile";
 
-import { Header } from "~/components/header";
-import { Intro } from "~/components/intro.js";
+import { About } from "~/components/about.js";
 import { Skill } from "~/components/skill.js";
 import type { MyPage } from "~/index.js";
 
@@ -33,12 +32,6 @@ export const landingPage: MyPage = {
 	asyncCsses: ["/styles/lazy-landing.css"],
 	getChild: () => {
 		const { main } = env.van.tags;
-		return main(
-			{ id: "home", class: "landing" },
-			Header(),
-			Intro(),
-			Skill(),
-			GithubProfile(),
-		);
+		return main(About(), Skill(), GithubProfile());
 	},
 };

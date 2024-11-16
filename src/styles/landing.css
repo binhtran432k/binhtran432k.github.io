@@ -4,7 +4,7 @@
 	src: url("../fonts/noir_et_blanc.woff2");
 }
 
-.intro {
+.about {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -21,16 +21,15 @@
 		}
 	}
 
-	.content {
+	.intro {
 		font-family: noirEtBlanc, sans-serif;
 		line-height: 1.5;
 		letter-spacing: .12em;
-	}
-
-	.bi-waving-hand::before {
-		color: rgb(var(--orange-rgb));
-		display: inline-block;
-		animation: wavingHand .8s infinite alternate;
+		.bi-waving-hand::before {
+			color: rgb(var(--orange-rgb));
+			display: inline-block;
+			animation: wavingHand .8s infinite alternate;
+		}
 	}
 
 	.background {

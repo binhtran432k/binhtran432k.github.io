@@ -44,12 +44,12 @@
 		transform-origin: top;
 		gap: 2rem;
 		transform: scaleY(0);
-		#navbar-button:checked ~ & {
+		#navbar-toggle:checked ~ & {
 			transform: scaleY(1);
 		}
 	}
 
-	.navbar-button {
+	.navbar-toggle {
 		&::before {
 			/* biome-ignore lint/a11y/useGenericFontNames: custom font */
 			font-family: binhtran432k !important;
@@ -58,16 +58,12 @@
 			transition: transform .3s;
 			display: inline-block;
 		}
-		#navbar-button:checked ~ &::before {
+		#navbar-toggle:checked ~ &::before {
 			content: "";
 		}
-		#navbar-button:checked ~ &:hover::before {
+		#navbar-toggle:checked ~ &:hover::before {
 			transform: rotate(180deg);
 		}
-	}
-
-	#navbar-button {
-		display: none;
 	}
 
 	@media only screen {
@@ -81,7 +77,7 @@
 				padding: initial;
 				gap: 1rem;
 			}
-			.navbar-button {
+			.navbar-toggle {
 				display: none;
 			}
 		}
