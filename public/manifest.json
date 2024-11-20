@@ -1,9 +1,9 @@
 {
-  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-  "name": "binhtran432k-portfolio",
-  "short_name": "BINH TRAN - Fullstack Developer",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#fff",
-  "description": "The official portfolio website of Binh Duc Tran."
+	"$schema": "https://json.schemastore.org/web-manifest-combined.json",
+	"name": "binhtran432k-portfolio",
+	"short_name": "BINH TRAN - Self Studied Developer",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#fff",
+	"description": "The official portfolio website of Binh Duc Tran."
 }
