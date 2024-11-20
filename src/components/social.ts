@@ -17,7 +17,12 @@ export const Social = () => {
 			.filter(([, x]) => Boolean(x))
 			.map(([label, href]) =>
 				a(
-					{ href, target: "_blank", "aria-label": `${label} link` },
+					{
+						href,
+						target: "_blank",
+						"aria-label": `${label} link`,
+						hidecoolcursor: true,
+					},
 					span({ class: `bi-${label}` }),
 				),
 			),

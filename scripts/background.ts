@@ -1,4 +1,4 @@
-import { env } from "mini-van-plate/shared";
+import van from "mini-van-plate/van-plate";
 
 const colors = {
 	bg: "transparent",
@@ -19,14 +19,15 @@ const circles = {
 } as const;
 
 export const Background = (props?: Record<string, unknown>) => {
-	const { svg, circle, path, defs, linearGradient, stop, g } = env.van.tags(
+	const { svg, circle, path, defs, linearGradient, stop, g } = van.tags(
 		"http://www.w3.org/2000/svg",
 	);
 
 	return svg(
 		{
-			width: "1920",
-			height: "1080",
+			xmlns: "http://www.w3.org/2000/svg",
+			width: size.width,
+			height: size.height,
 			viewBox: `0 0 ${size.width} ${size.height}`,
 			...props,
 		},

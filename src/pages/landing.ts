@@ -1,10 +1,11 @@
 import { env } from "mini-van-plate/shared";
 import { GithubProfile } from "~/components/github-profile";
 
-import { About } from "~/components/about.js";
+import { Intro } from "~/components/intro.js";
 import { Skill } from "~/components/skill.js";
 import type { MyPage } from "~/index.js";
 
+import landingJs from "~scripts/landing.js" with { type: "text" };
 import iconCss from "~styles/icon.css" with { type: "text" };
 import landingCss from "~styles/landing.css" with { type: "text" };
 
@@ -29,9 +30,10 @@ export const landingPage: MyPage = {
 	],
 	author: "Binh Tran",
 	styles: [landingCss.trim(), iconCss.trim()],
+	scripts: [(landingJs as string).trim()],
 	asyncCsses: ["/styles/lazy-landing.css"],
 	getChild: () => {
 		const { main } = env.van.tags;
-		return main(About(), Skill(), GithubProfile());
+		return main(Intro(), Skill(), GithubProfile());
 	},
 };

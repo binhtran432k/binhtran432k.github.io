@@ -4,7 +4,33 @@
 	src: url("../fonts/noir_et_blanc.woff2");
 }
 
-.about {
+main {
+	margin-top: 2rem;
+	position: relative;
+
+	#background-hover {
+		background-image: url("~assets/background.svg");
+		background-position: center;
+		background-size: auto min(90%, 1080px);
+		position: absolute;
+		left: 0;
+		top: -2rem;
+		width: 100%;
+		height: 100%;
+		max-height: min(105vh, 1096px);
+		z-index: -1;
+	}
+}
+
+header,
+.intro {
+	text-shadow: .05em .05em .1em #0000007f;
+}
+.cool-button {
+	text-shadow: none;
+}
+
+.intro {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -21,7 +47,7 @@
 		}
 	}
 
-	.intro {
+	.content {
 		font-family: noirEtBlanc, sans-serif;
 		line-height: 1.5;
 		letter-spacing: .12em;
@@ -30,17 +56,6 @@
 			display: inline-block;
 			animation: wavingHand .8s infinite alternate;
 		}
-	}
-
-	.background {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		width: 100%;
-		min-width: 1080px;
-		height: 100%;
-		z-index: -1;
 	}
 }
 

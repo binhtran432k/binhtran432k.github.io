@@ -8,7 +8,7 @@ import { landingPage } from "~/pages/landing.js";
 import coreCss from "~styles/core.css" with { type: "text" };
 import headerCss from "~styles/header.css" with { type: "text" };
 
-const { head, title, body, meta, link, style } = van.tags;
+const { head, title, body, meta, link, style, script } = van.tags;
 
 registerEnv({ van });
 
@@ -28,6 +28,7 @@ export type MyPage = {
 	author?: string;
 	status?: MySite["status"];
 	styles?: string[];
+	scripts?: string[];
 	asyncCsses?: string[];
 	icons?: () => ChildDom;
 	getExtraHead?: () => ChildDom;
@@ -40,6 +41,7 @@ export function fetchSite(pathname: string | null): MySite {
 		coreCss.trim() +
 		headerCss.trim() +
 		(page.styles ? page.styles.join("") : "");
+	const scriptsRaw = page.scripts ? page.scripts.join("") : "";
 	const content = van.html(
 		{ lang: "en-us" },
 		head(
@@ -65,7 +67,7 @@ export function fetchSite(pathname: string | null): MySite {
 			// Extra Head Elements
 			page.getExtraHead?.(),
 		),
-		body(page.getChild?.()),
+		body(page.getChild?.(), script(scriptsRaw)),
 	);
 	return {
 		content,

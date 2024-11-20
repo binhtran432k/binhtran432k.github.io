@@ -1,4 +1,8 @@
+import { readFileSync } from "node:fs";
 import { readdir } from "node:fs/promises";
+import { Background } from "./background.js";
+
+import { minifyGlsl } from "~/utils/minify.js";
 
 // Imports for watch only
 import "~/styles/header.css";
@@ -6,6 +10,8 @@ import "~/styles/landing.css";
 import "~/styles/icon.css";
 import "~/styles/core.css";
 import "~/styles/lazy-landing.css";
+import "~/scripts/cool-cursor.js";
+import "~/scripts/landing.js" with { type: "text" };
 
 // Init dist folder
 await Bun.$`rm -rf dist`;
@@ -15,6 +21,7 @@ await Promise.all([
 	// Build Clients
 	buildScripts(),
 	buildStyles(),
+	Bun.write("dist/assets/background.svg", Background().render()),
 ]);
 
 const { fetchSite } = await import("~/index.js");
@@ -39,8 +46,18 @@ export async function buildScripts() {
 	await Bun.build({
 		entrypoints: files.map((f) => `src/scripts/${f}`),
 		outdir: "dist/scripts",
-		splitting: true,
 		minify: true,
+		plugins: [
+			{
+				name: "glsl",
+				setup(builder) {
+					builder.onLoad({ filter: /\.glsl$/ }, ({ path }) => ({
+						loader: "text",
+						contents: minifyGlsl(readFileSync(path, "utf8")),
+					}));
+				},
+			},
+		],
 	});
 }
 
