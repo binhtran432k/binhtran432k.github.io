@@ -11,6 +11,7 @@ import hoverVertexSource from "~/sharders/hover-vertex.glsl" with {
 /** Use to limit FPS (ms/fps) */
 const TIME_PER_FRAME = Math.floor(1000 / 30);
 const FRAMES_PER_UPDATE = Math.floor(300 / TIME_PER_FRAME);
+const DELTA_FACTOR = 0.5;
 const DELTA_STRENGTH = -1;
 
 type ProgramInfo = {
@@ -166,9 +167,9 @@ function setupImageEffect(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
 						return;
 					}
 
-					if (changedDX) programInfo.image.dx /= 1.5;
-					if (changedDY) programInfo.image.dy /= 1.5;
-					if (changedDAlpha) programInfo.image.dalpha /= 1.5;
+					if (changedDX) programInfo.image.dx *= DELTA_FACTOR;
+					if (changedDY) programInfo.image.dy *= DELTA_FACTOR;
+					if (changedDAlpha) programInfo.image.dalpha *= DELTA_FACTOR;
 				} else {
 					const changedX =
 						props.x && Math.abs(programInfo.image.x - props.x) > 0.001;
