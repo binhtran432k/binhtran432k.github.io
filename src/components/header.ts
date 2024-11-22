@@ -7,7 +7,10 @@ const CoolLink = ({ href, title }: { href: string; title: string }) => {
 
 const CoolButton = ({ href, title }: { href: string; title: string }) => {
 	const { a, span } = env.van.tags;
-	return a({ href, class: "cool-button", hidecoolcursor: true }, span(title));
+	return a(
+		{ href, class: "cool-button shadow", hidecoolcursor: true },
+		span(title),
+	);
 };
 
 export const Header = () => {
