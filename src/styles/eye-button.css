@@ -1,0 +1,60 @@
+.eye-button {
+	color: var(--fg);
+	display: inline-block;
+	width: 8rem;
+	height: 8rem;
+	.eye,
+	.text {
+		transform-origin: center;
+	}
+	.text {
+		will-change: transform;
+		animation: spin 15s linear infinite;
+	}
+	&:hover {
+		.eye {
+			animation: squeeze 3s infinite;
+		}
+		.lid {
+			animation: blink 3s infinite;
+		}
+	}
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes blink {
+	0%,
+	10%,
+	25% {
+		transform: none;
+		animation-timing-function: ease-in;
+	}
+	4%,
+	14% {
+		transform: translateY(50%) scaleY(0);
+	}
+	25% {
+		animation-timing-function: ease-out;
+	}
+}
+
+@keyframes squeeze {
+	0%,
+	10%,
+	25% {
+		transform: none;
+		animation-timing-function: ease-in;
+	}
+	4%,
+	14% {
+		transform: scaleY(0.8);
+	}
+	25% {
+		animation-timing-function: ease-out;
+	}
+}

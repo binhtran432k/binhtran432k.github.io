@@ -1,4 +1,5 @@
 import { env } from "mini-van-plate/shared";
+import { EyeDefs } from "~/components/eye-button";
 import { GithubProfile } from "~/components/github-profile";
 
 import { Intro } from "~/components/intro.js";
@@ -31,9 +32,10 @@ export const landingPage: MyPage = {
 	author: "Binh Tran",
 	styles: [landingCss.trim(), iconCss.trim()],
 	scripts: [(landingJs as string).trim()],
-	asyncCsses: ["/styles/lazy-landing.css"],
+	asyncCsses: ["/styles/lazy-landing.css", "/styles/eye-button.css"],
 	getChild: () => {
 		const { main } = env.van.tags;
 		return main(Intro(), Skill(), GithubProfile());
 	},
+	svgShare: () => [EyeDefs()],
 };
