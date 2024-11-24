@@ -1,17 +1,17 @@
-export function debounceAnimationFrame<P>(
-	fn: (time: number, props: P) => unknown,
+export function debounceAnimationFrame<P extends unknown[]>(
+	fn: (...params: P) => unknown,
 ) {
 	let frame: number | undefined;
-	return (props: P = undefined as P) => {
+	return (...params: P) => {
 		if (frame) cancelAnimationFrame(frame);
-		frame = requestAnimationFrame((time) => {
-			fn(time, props);
+		frame = requestAnimationFrame(() => {
+			fn(...params);
 		});
 	};
 }
 
-export function debounceTimeout<P extends Array<unknown>>(
-	fn: (...p: P) => unknown,
+export function debounceTimeout<P extends unknown[]>(
+	fn: (...params: P) => unknown,
 	timeout: number,
 ): (...params: P) => void {
 	let timer: Timer | undefined;

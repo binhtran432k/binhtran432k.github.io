@@ -8,6 +8,7 @@ attribute vec2 a_texCoord;
 uniform vec2 u_resolution;
 uniform vec2 u_delta;
 
+varying vec2 v_delta;
 varying vec2 v_texCoord;
 
 vec2 deformateCurve(vec2 position, vec2 uv, vec2 delta) {
@@ -23,6 +24,7 @@ vec2 pixelToVec(vec2 val) {
 void main() {
   vec2 position = deformateCurve(a_position, a_texCoord*u_resolution, u_delta);
 
-  v_texCoord = a_texCoord + u_delta/u_resolution*2.;
+  v_delta = u_delta/u_resolution;
+  v_texCoord = a_texCoord + v_delta*2.;
   gl_Position = vec4(pixelToVec(position), 0, 1);
 }
