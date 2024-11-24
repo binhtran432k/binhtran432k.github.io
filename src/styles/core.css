@@ -133,17 +133,21 @@ html {
 	font-size: 0.875em;
 	color: var(--gray);
 	padding: 1.25em;
-	&::before,
+	span {
+		position: relative;
+		z-index: 2;
+	}
+	&.shadow::before,
 	&::after {
 		position: absolute;
 		content: "";
 		height: 90%;
 		top: 5%;
-		z-index: -1;
+		z-index: 1;
 		transition: .3s;
 		transition-timing-function: cubic-bezier(0.5, 2.5, 0.5, 0.5);
 	}
-	&::before {
+	&.shadow::before {
 		left: 6%;
 		width: 85%;
 		transform: rotate(-20deg);
@@ -161,7 +165,7 @@ html {
 		transform: rotate(0) translateX(2%);
 		border-radius: 46% 54% 58% 42% / 48% 35% 65% 52%;
 	}
-	&:hover::before {
+	&.shadow:hover::before {
 		width: 95%;
 		transform: rotate(0) translateY(12%);
 	}

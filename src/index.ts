@@ -9,6 +9,7 @@ import coreCss from "~styles/core.css" with { type: "text" };
 import headerCss from "~styles/header.css" with { type: "text" };
 
 const { head, title, body, meta, link, style, script } = van.tags;
+const { svg } = van.tags("http://www.w3.org/2000/svg");
 
 registerEnv({ van });
 
@@ -33,6 +34,7 @@ export type MyPage = {
 	icons?: () => ChildDom;
 	getExtraHead?: () => ChildDom;
 	getChild?: () => ChildDom;
+	svgShare?: () => ChildDom;
 };
 
 export function fetchSite(pathname: string | null): MySite {
@@ -67,7 +69,12 @@ export function fetchSite(pathname: string | null): MySite {
 			// Extra Head Elements
 			page.getExtraHead?.(),
 		),
-		body(page.getChild?.(), script(scriptsRaw)),
+		body(
+			page.getChild?.(),
+			page.svgShare &&
+				svg({ style: "display:none;", hidden: true }, page.svgShare()),
+			script(scriptsRaw),
+		),
 	);
 	return {
 		content,
