@@ -35,6 +35,7 @@ export const Header = () => {
 				CoolLink({ href: "#intro", title: "Intro" }),
 				CoolLink({ href: "#skill", title: "Skills" }),
 				CoolLink({ href: "#github-profile", title: "Github Profile" }),
+				CoolLink({ href: "#project", title: "Projects" }),
 				CoolButton({ href: "#contact", title: "Contact" }),
 			),
 		),
