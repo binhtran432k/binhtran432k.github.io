@@ -1,5 +1,6 @@
 import { debounceAnimationFrame } from "~/utils/core.js";
 import { initShaderProgram, resizeCanvasToDisplaySize } from "~/utils/webgl.js";
+import { isScrolling } from "./scrolling.js";
 
 import hoverFragmentSource from "~/sharders/hover-fragment.glsl" with {
 	type: "text",
@@ -8,11 +9,10 @@ import hoverVertexSource from "~/sharders/hover-vertex.glsl" with {
 	type: "text",
 };
 
-/** Use to limit FPS (ms/fps) */
-const TIME_PER_FRAME = Math.floor(1000 / 30);
-const FRAMES_PER_UPDATE = Math.floor(300 / TIME_PER_FRAME);
-const DELTA_FACTOR = 0.5;
-const DELTA_STRENGTH = -1;
+const TIME_PER_FRAME = Math.floor(1000 / 60);
+const DIVISOR_PER_FRAME = Math.floor(150 / TIME_PER_FRAME);
+const DELTA_STRENGTH_Y = -1;
+const DELTA_STRENGTH_X = DELTA_STRENGTH_Y * (4 / 3);
 
 type ProgramInfo = {
 	image: {
@@ -22,7 +22,6 @@ type ProgramInfo = {
 		alpha: number;
 		dx: number;
 		dy: number;
-		dalpha: number;
 	};
 	program: WebGLProgram;
 	texture: WebGLTexture;
@@ -45,7 +44,11 @@ export function setupCoolCursor() {
 	const canvas = document.getElementById(
 		"background-hover",
 	) as HTMLCanvasElement;
-	const gl = canvas.getContext("webgl", { premultipliedAlpha: false });
+	const gl = canvas.getContext("webgl", {
+		premultipliedAlpha: false,
+		depth: false,
+		antialias: false,
+	} as WebGLContextAttributes);
 	if (!gl) return;
 
 	resizeCanvasToDisplaySize(gl.canvas as HTMLCanvasElement);
@@ -89,7 +92,6 @@ export function setupCoolCursor() {
 			alpha: 1,
 			dx: 0,
 			dy: 0,
-			dalpha: 0,
 		},
 	};
 
@@ -105,109 +107,69 @@ function setupImage(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
 	programInfo.image.elem.onload = setupImageEffect.bind(null, gl, programInfo);
 }
 
-function drawImage(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
-	resizeCanvasToDisplaySize(gl.canvas as HTMLCanvasElement);
-	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-
-	gl.clearColor(0, 0, 0, 0);
-	gl.clear(gl.COLOR_BUFFER_BIT);
-
-	gl.bindBuffer(gl.ARRAY_BUFFER, programInfo.buffer.position);
-	setRectangle(
-		gl,
-		programInfo.image.x - programInfo.image.elem.width / 2,
-		programInfo.image.y - programInfo.image.elem.height / 2,
-		programInfo.image.elem.width,
-		programInfo.image.elem.height,
-	);
-
-	gl.uniform2f(
-		programInfo.uniform.resolution,
-		gl.canvas.width,
-		gl.canvas.height,
-	);
-
-	gl.uniform2f(
-		programInfo.uniform.delta,
-		programInfo.image.dx * DELTA_STRENGTH,
-		programInfo.image.dy * DELTA_STRENGTH,
-	);
-
-	gl.uniform1f(programInfo.uniform.alpha, programInfo.image.alpha);
-
-	gl.drawArrays(gl.TRIANGLES, 0, 6);
-}
-
 function setupImageEffect(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
 	const drawImageLoop = debounceAnimationFrame(
-		(
-			time,
-			props: {
-				oldTime?: number;
-				x?: number;
-				y?: number;
-				alpha: number;
-				restore?: boolean;
-			},
-		) => {
-			if (!props.oldTime || time - props.oldTime > FRAMES_PER_UPDATE) {
-				if (!props.oldTime) props.oldTime = time;
-				else props.oldTime += FRAMES_PER_UPDATE;
-
-				if (props.restore) {
-					const changedDX = Math.abs(programInfo.image.dx) > 0.001;
-					const changedDY = Math.abs(programInfo.image.dy) > 0.001;
-					const changedDAlpha = Math.abs(programInfo.image.dalpha) > 0.001;
-
-					if (!changedDX && !changedDY && !changedDAlpha) {
-						programInfo.image.dx = 0;
-						programInfo.image.dy = 0;
-						programInfo.image.dalpha = 0;
-						drawImage(gl, programInfo);
-						return;
-					}
-
-					if (changedDX) programInfo.image.dx *= DELTA_FACTOR;
-					if (changedDY) programInfo.image.dy *= DELTA_FACTOR;
-					if (changedDAlpha) programInfo.image.dalpha *= DELTA_FACTOR;
-				} else {
-					const changedX =
-						props.x && Math.abs(programInfo.image.x - props.x) > 0.001;
-					const changedY =
-						props.y && Math.abs(programInfo.image.y - props.y) > 0.001;
-					const changedAlpha =
-						Math.abs(programInfo.image.alpha - props.alpha) > 0.001;
-
-					if (!changedX && !changedY && !changedAlpha) {
-						props.restore = true;
-						drawImageLoop(props);
-						return;
-					}
-
-					if (changedX) programInfo.image.x += programInfo.image.dx;
-					if (changedY) programInfo.image.y += programInfo.image.dy;
-					if (changedAlpha) programInfo.image.alpha += programInfo.image.dalpha;
-				}
+		(props: { x?: number; y?: number; alpha: number }) => {
+			if (isScrolling) {
+				programInfo.image.alpha = 0;
 				drawImage(gl, programInfo);
+				return;
 			}
+
+			const changedX = props.x ? props.x - programInfo.image.x : 0;
+			const changedY = props.y ? props.y - programInfo.image.y : 0;
+			const changedAlpha = props.alpha - programInfo.image.alpha;
+
+			const hasChangedX = Math.abs(changedX) > 1;
+			const hasChangedY = Math.abs(changedY) > 1;
+			const hasChangedAlpha = Math.abs(changedAlpha) > 0.01;
+
+			if (!hasChangedX && !hasChangedY && !hasChangedAlpha) {
+				programInfo.image.dy = 0;
+				programInfo.image.dx = 0;
+				programInfo.image.alpha = props.alpha;
+				drawImage(gl, programInfo);
+				return;
+			}
+
+			if (hasChangedX) {
+				programInfo.image.dx = changedX / DIVISOR_PER_FRAME;
+				programInfo.image.x += programInfo.image.dx;
+			}
+			if (hasChangedY) {
+				programInfo.image.dy = changedY / DIVISOR_PER_FRAME;
+				programInfo.image.y += programInfo.image.dy;
+			}
+			if (hasChangedAlpha)
+				programInfo.image.alpha += changedAlpha / DIVISOR_PER_FRAME;
+
+			drawImage(gl, programInfo);
 
 			drawImageLoop(props);
 		},
 	);
 
-	const updateCursor = ({
-		x,
-		y,
-		alpha,
-	}: { x?: number; y?: number; alpha: number }) => {
-		if (x) programInfo.image.dx = (x - programInfo.image.x) / FRAMES_PER_UPDATE;
-		if (y) programInfo.image.dy = (y - programInfo.image.y) / FRAMES_PER_UPDATE;
-		programInfo.image.dalpha =
-			(alpha - programInfo.image.alpha) / FRAMES_PER_UPDATE;
-		drawImageLoop({ x, y, alpha });
-	};
+	const handleMoveMouse = debounceAnimationFrame((e: MouseEvent) => {
+		if (isScrolling || window.scrollY >= gl.canvas.height) return;
 
-	const hideCursor = debounceAnimationFrame(() => updateCursor({ alpha: 0 }));
+		if ((e.target as HTMLElement).closest("[hidecoolcursor]"))
+			return handleHideMouse();
+
+		if (e.clientY + window.scrollY >= gl.canvas.height)
+			return handleHideMouse();
+		const { x, y } = getCursorCoord(
+			e.clientX,
+			e.clientY + window.scrollY,
+			gl.canvas.width,
+			gl.canvas.height,
+		);
+
+		drawImageLoop({ x, y, alpha: 1 });
+	});
+
+	const handleHideMouse = debounceAnimationFrame(
+		drawImageLoop.bind(null, { alpha: 0 }),
+	);
 
 	document.addEventListener(
 		"mousemove",
@@ -224,30 +186,8 @@ function setupImageEffect(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
 			initDraw(gl, programInfo);
 			drawImage(gl, programInfo);
 
-			let oldTime: number | undefined;
-			document.addEventListener(
-				"mousemove",
-				debounceAnimationFrame((time, e) => {
-					if (window.scrollY >= gl.canvas.height) return;
-
-					if (oldTime && time - oldTime < TIME_PER_FRAME) return;
-					oldTime = time;
-
-					if ((e.target as HTMLElement).closest("[hidecoolcursor]"))
-						return hideCursor();
-
-					if (e.clientY + window.scrollY >= gl.canvas.height)
-						return hideCursor();
-					const { x, y } = getCursorCoord(
-						e.clientX,
-						e.clientY + window.scrollY,
-						gl.canvas.width,
-						gl.canvas.height,
-					);
-					updateCursor({ x, y, alpha: 1 });
-				}),
-			);
-			document.addEventListener("mouseleave", hideCursor);
+			document.addEventListener("mousemove", handleMoveMouse);
+			document.addEventListener("mouseleave", handleHideMouse);
 		},
 		{ once: true },
 	);
@@ -267,6 +207,15 @@ function getCursorCoord(
 
 function initDraw(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
 	gl.useProgram(programInfo.program);
+
+	const indexBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+	const indices = [0, 1, 2, 2, 1, 3];
+	gl.bufferData(
+		gl.ELEMENT_ARRAY_BUFFER,
+		new Uint16Array(indices),
+		gl.STATIC_DRAW,
+	);
 
 	gl.bindTexture(gl.TEXTURE_2D, programInfo.texture);
 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -291,7 +240,6 @@ function initDraw(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
 		programInfo.image.elem.height,
 	);
 	gl.enableVertexAttribArray(programInfo.attribute.position);
-	gl.bindBuffer(gl.ARRAY_BUFFER, programInfo.buffer.position);
 	gl.vertexAttribPointer(
 		programInfo.attribute.position,
 		2,
@@ -304,7 +252,6 @@ function initDraw(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
 	gl.bindBuffer(gl.ARRAY_BUFFER, programInfo.buffer.texCoord);
 	setRectangle(gl, 0, 0, 1, 1);
 	gl.enableVertexAttribArray(programInfo.attribute.texCoord);
-	gl.bindBuffer(gl.ARRAY_BUFFER, programInfo.buffer.texCoord);
 	gl.vertexAttribPointer(
 		programInfo.attribute.texCoord,
 		2,
@@ -313,6 +260,52 @@ function initDraw(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
 		0,
 		0,
 	);
+
+	clearImage(gl);
+
+	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+	// Array Buffer will be position only now
+	gl.bindBuffer(gl.ARRAY_BUFFER, programInfo.buffer.position);
+
+	// Element Array Buffer will be index only now
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+}
+
+function clearImage(gl: WebGLRenderingContext) {
+	gl.clearColor(0, 0, 0, 0);
+	gl.clear(gl.COLOR_BUFFER_BIT);
+}
+
+function drawImage(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
+	if (resizeCanvasToDisplaySize(gl.canvas as HTMLCanvasElement)) {
+		gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+	}
+
+	setRectangle(
+		gl,
+		programInfo.image.x - programInfo.image.elem.width / 2,
+		programInfo.image.y - programInfo.image.elem.height / 2,
+		programInfo.image.elem.width,
+		programInfo.image.elem.height,
+	);
+
+	gl.uniform2f(
+		programInfo.uniform.resolution,
+		gl.canvas.width,
+		gl.canvas.height,
+	);
+
+	gl.uniform2f(
+		programInfo.uniform.delta,
+		programInfo.image.dx * DELTA_STRENGTH_X,
+		programInfo.image.dy * DELTA_STRENGTH_Y,
+	);
+
+	gl.uniform1f(programInfo.uniform.alpha, programInfo.image.alpha);
+
+	// gl.drawArrays(gl.TRIANGLES, 0, 6);
+	gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
 }
 
 function setRectangle(
@@ -328,7 +321,7 @@ function setRectangle(
 	const y2 = y + height;
 	gl.bufferData(
 		gl.ARRAY_BUFFER,
-		new Float32Array([x1, y1, x2, y1, x1, y2, x1, y2, x2, y1, x2, y2]),
+		new Float32Array([x1, y1, x2, y1, x1, y2, x2, y2]),
 		gl.STATIC_DRAW,
 	);
 }

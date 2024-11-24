@@ -4,8 +4,8 @@ uniform sampler2D u_image;
 uniform float u_alpha;
 
 uniform vec2 u_resolution;
-uniform vec2 u_delta;
 
+varying vec2 v_delta;
 varying vec2 v_texCoord;
 
 vec2 scaleUV(vec2 uv, float scale) {
@@ -14,11 +14,11 @@ vec2 scaleUV(vec2 uv, float scale) {
 }
 
 vec3 rgbShift(sampler2D txe, vec2 uv, vec2 delta) {
-  float r = texture2D(txe, scaleUV(uv, .8) + 2.*delta).r;
+  float r = texture2D(txe, scaleUV(uv, .8) + 1.5*delta).r;
   vec2 gb = texture2D(txe, scaleUV(uv, .8)).gb;
   return vec3(r, gb);
 }
 
 void main() {
-   gl_FragColor = vec4(rgbShift(u_image, v_texCoord, u_delta/u_resolution), u_alpha);
+   gl_FragColor = vec4(rgbShift(u_image, v_texCoord, v_delta), u_alpha);
 }

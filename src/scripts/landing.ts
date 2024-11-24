@@ -1,6 +1,7 @@
 import { debounceAnimationFrame } from "~/utils/core.js";
 
 import { setupCoolCursor } from "./cool-cursor.js";
+import { setupScrolling } from "./scrolling.js";
 
 function setupHeaderBackground() {
 	const header = document.querySelector("header") as HTMLDivElement;
@@ -9,11 +10,16 @@ function setupHeaderBackground() {
 		"navbar-toggle",
 	) as HTMLInputElement;
 
+	let isTransparent = false;
 	const handleBackground = debounceAnimationFrame(() => {
 		if (navbarToggle.checked || window.scrollY > 100) {
-			header.style.transitionDuration = ".5s";
-			header.style.backgroundColor = originHeaderBgColor;
-		} else {
+			if (isTransparent) {
+				header.style.transitionDuration = ".5s";
+				header.style.backgroundColor = originHeaderBgColor;
+				isTransparent = false;
+			}
+		} else if (!isTransparent) {
+			isTransparent = true;
 			header.style.backgroundColor = "transparent";
 		}
 	});
@@ -24,23 +30,9 @@ function setupHeaderBackground() {
 	navbarToggle.addEventListener("change", handleBackground);
 }
 
-function setupLinks() {
-	const links = document.getElementsByTagName("a");
-	for (let i = 0; i < links.length; i++) {
-		const link = links[i];
-		const url = new URL(link.href);
-		if (url.pathname === "/" && !url.hash) {
-			link.onclick = (e) => {
-				e.preventDefault();
-				window.history.replaceState("", "/", window.location.pathname);
-			};
-		}
-	}
-}
-
 function main() {
+	setupScrolling();
 	setupHeaderBackground();
-	setupLinks();
 	setupCoolCursor();
 }
 
