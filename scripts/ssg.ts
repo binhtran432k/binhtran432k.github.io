@@ -15,30 +15,22 @@ import "~/scripts/landing.js" with { type: "text" };
 
 // Init dist folder
 await Bun.$`rm -rf dist`;
-await Bun.$`mkdir dist`;
 
-await Promise.all([
-	// Build Clients
-	buildScripts(),
-	buildStyles(),
-	Bun.write("dist/assets/background.svg", Background().render()),
-]);
+// Build Clients
+await Bun.write("dist/assets/background.svg", Background().render());
+await Promise.all([buildScripts(), buildStyles()]);
 
-const { fetchSite } = await import("~/index.js");
+const { fetchSite, pageMap } = await import("~/index.js");
 
 await Promise.all([
 	// Copy public
 	Bun.$`cp -r public/* dist`,
 	// Write Sites
-	writeSite("/"),
-	Bun.write("dist/404.html", fetchSite(null).content),
+	...Object.keys(pageMap).map((page) => writeSite(page)),
 ]);
 
 async function writeSite(pathname: string): Promise<number> {
-	return await Bun.write(
-		`dist${pathname}index.html`,
-		fetchSite(pathname).content,
-	);
+	return await Bun.write(`dist${pathname}`, fetchSite(pathname).content);
 }
 
 export async function buildScripts() {

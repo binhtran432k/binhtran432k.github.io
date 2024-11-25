@@ -23,7 +23,6 @@ export function minifyGlsl(raw: string): string {
 	const oneLineNoCommentRaw = raw
 		.replace(/\s*(?:\/\*(?:[^*]|\*[^/])*\*+\/|\/\/[^\r\n]*)\s*/g, "")
 		.replace(/\s*\n\s*/, "\n");
-	console.log(oneLineNoCommentRaw);
 	return zip2(
 		oneLineNoCommentRaw
 			.split(QUOTE_REGEX)

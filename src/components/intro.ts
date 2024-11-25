@@ -1,6 +1,5 @@
 import { env } from "mini-van-plate/shared";
 
-import { Header } from "./header.js";
 import { Social } from "./social.js";
 
 export const IntroContent = () => {
@@ -17,9 +16,17 @@ export const IntroContent = () => {
 export const Intro = () => {
 	const { div, section, canvas } = env.van.tags;
 	return [
-		div({ id: "intro" }),
-		canvas({ id: "background-hover", width: 1920, height: 1080 }),
-		Header(),
-		section({ class: "intro container" }, IntroContent(), Social()),
+		canvas({
+			class: "background",
+			id: "background-hover",
+			width: 1920,
+			height: 1080,
+		}),
+		section(
+			{ class: "intro container" },
+			div({ id: "intro" }),
+			IntroContent(),
+			Social(),
+		),
 	];
 };

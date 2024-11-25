@@ -9,7 +9,7 @@ export const notFoundPage: MyPage = {
 		const { h1, p, div } = env.van.tags;
 		return div(
 			h1("Page not found"),
-			p("Sorry, that page doesn't seem to exist"),
+			p("This is not the web page you are looking for."),
 		);
 	},
 };

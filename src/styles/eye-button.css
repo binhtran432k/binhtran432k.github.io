@@ -1,8 +1,8 @@
 .eye-button {
 	color: var(--fg);
 	display: inline-block;
-	width: 8rem;
-	height: 8rem;
+	width: 8em;
+	height: 8em;
 	.eye,
 	.text {
 		transform-origin: center;
