@@ -13,17 +13,12 @@ const server = Bun.serve({
 });
 
 async function getFile(pathname: string): Promise<BunFile | null> {
-	const path = getFallbackPath(pathname);
-	if (!path) return null;
-
-	const file = Bun.file(path);
+	const trimedPath = pathname.replace(/^\/|\/$/g, "");
+	const indexFile = Bun.file(`dist/${trimedPath}/index.html`);
+	if (await indexFile.exists()) return indexFile;
+	const file = Bun.file(`dist/${trimedPath}`);
 	if (await file.exists()) return file;
 	return null;
-}
-
-function getFallbackPath(pathname: string): string | null {
-	if (pathname.endsWith("/")) return `dist${pathname}index.html`;
-	return `dist${pathname}`;
 }
 
 console.log(`Try visiting the server via http://localhost:${server.port}`);

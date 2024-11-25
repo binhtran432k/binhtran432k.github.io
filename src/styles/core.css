@@ -37,7 +37,10 @@
 	--container-padding-x: 1rem;
 	--container-max-width: 1200px;
 
-	font-family: Arial, Helvetica, sans-serif;
+	&,
+	::placeholder {
+		font-family: Arial, Helvetica, sans-serif;
+	}
 
 	@media only screen {
 		@media (min-width: 600px) {
@@ -89,6 +92,27 @@ html {
 .container {
 	margin: auto;
 	max-width: var(--container-max-width);
+}
+
+.background {
+	background-image: url("~assets/background.svg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: auto min(90%, 1080px);
+	background-attachment: fixed;
+}
+
+.page-content {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+	min-height: calc(100vh - 8rem);
+	h1 {
+		font-size: 2rem;
+		margin-bottom: 1rem;
+	}
 }
 
 .cool-link {

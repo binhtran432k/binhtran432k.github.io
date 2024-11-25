@@ -1,13 +1,16 @@
 import { env } from "mini-van-plate/shared";
 
+import { Contact } from "~/components/contact.js";
 import { EyeDefs } from "~/components/eye-button.js";
 import { GithubProfile } from "~/components/github-profile.js";
+import { Header } from "~/components/header.js";
 import { Intro } from "~/components/intro.js";
 import { Projects } from "~/components/project.js";
 import { Skills } from "~/components/skill.js";
 import { UndercurlDefs } from "~/components/undercurl.js";
 import type { MyPage } from "~/index.js";
 
+import headerJs from "~scripts/header.js" with { type: "text" };
 import landingJs from "~scripts/landing.js" with { type: "text" };
 import iconCss from "~styles/icon.css" with { type: "text" };
 import landingCss from "~styles/landing.css" with { type: "text" };
@@ -33,7 +36,7 @@ export const landingPage: MyPage = {
 	],
 	author: "Binh Tran",
 	styles: [landingCss.trim(), iconCss.trim()],
-	scripts: [(landingJs as string).trim()],
+	scripts: [(landingJs as string).trim(), (headerJs as string).trim()],
 	asyncCsses: [
 		"/styles/lazy-landing.css",
 		"/styles/eye-button.css",
@@ -41,7 +44,14 @@ export const landingPage: MyPage = {
 	],
 	getChild: () => {
 		const { main } = env.van.tags;
-		return main(Intro(), Skills(), GithubProfile(), Projects());
+		return main(
+			Header(),
+			Intro(),
+			Skills(),
+			GithubProfile(),
+			Projects(),
+			Contact(),
+		);
 	},
 	svgShare: () => [EyeDefs(), UndercurlDefs()],
 };

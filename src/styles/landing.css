@@ -9,9 +9,6 @@ main {
 	position: relative;
 
 	#background-hover {
-		background-image: url("~assets/background.svg");
-		background-position: center;
-		background-size: auto min(90%, 1080px);
 		position: absolute;
 		left: 0;
 		top: -2rem;

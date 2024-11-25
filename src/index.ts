@@ -4,6 +4,7 @@ import van, { type ChildDom } from "mini-van-plate/van-plate";
 import { AsyncCss } from "~/components/async-css.js";
 import { notFoundPage } from "~/pages/404.js";
 import { landingPage } from "~/pages/landing.js";
+import { contactSuccessPage } from "./pages/contact-success.js";
 
 import coreCss from "~styles/core.css" with { type: "text" };
 import headerCss from "~styles/header.css" with { type: "text" };
@@ -82,7 +83,20 @@ export function fetchSite(pathname: string | null): MySite {
 	};
 }
 
+export const pageMap: Readonly<Record<string, MyPage>> = {
+	"/index.html": landingPage,
+	"/contact/success/index.html": contactSuccessPage,
+	"/404.html": notFoundPage,
+};
+
 function resolvePage(pathname: string | null): MyPage {
-	if (pathname === "/") return landingPage;
-	return notFoundPage;
+	const indexPage =
+		pathname &&
+		pageMap[new URL("index.html", Bun.pathToFileURL(pathname)).pathname];
+	if (indexPage) return indexPage;
+
+	const page = pathname && pageMap[pathname];
+	if (page) return page;
+
+	return pageMap["404.html"];
 }
