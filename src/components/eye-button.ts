@@ -4,7 +4,8 @@ let buttonIdTrack = 0;
 export const EyeButton = ({
 	href,
 	target,
-}: { href: string; target?: "_blank" }) => {
+	isContact,
+}: { href: string; target?: "_blank"; isContact?: boolean }) => {
 	const { a } = env.van.tags;
 	const { svg, mask, rect, defs, use, g } = env.van.tags(
 		"http://www.w3.org/2000/svg",
@@ -13,7 +14,7 @@ export const EyeButton = ({
 	const maskId = `eye-mask${id}`;
 
 	return a(
-		{ href, target, class: "eye-button" },
+		{ href, target: target ?? "_self", class: "eye-button" },
 		svg(
 			{
 				viewBox: "0 0 100 100",
@@ -26,7 +27,10 @@ export const EyeButton = ({
 					use({ "xlink:href": "#eye-outline", class: "lid", fill: "black" }),
 				),
 			),
-			use({ class: "text", "xlink:href": "#eye-text" }),
+			use({
+				class: "text",
+				"xlink:href": isContact ? "#eye-text-contact" : "#eye-text",
+			}),
 			g(
 				{ class: "eye" },
 				use({ "xlink:href": "#eye-path" }),
@@ -56,6 +60,17 @@ export const EyeDefs = () => {
 			fill: "currentColor",
 		}),
 		path({ id: "eye-line", d: "M50 13a1 1 0 010 74 1 1 0 010-74Z" }),
+		text(
+			{
+				id: "eye-text-contact",
+				fill: "currentColor",
+				style: "font-size:12px;letter-spacing:3px",
+			},
+			textPath(
+				{ href: "#eye-line", startoffset: "0" },
+				".GET IN TOUCH WITH ME.",
+			),
+		),
 		text(
 			{ id: "eye-text", fill: "currentColor", style: "font-size:12px;" },
 			textPath(

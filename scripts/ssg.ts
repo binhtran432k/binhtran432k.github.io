@@ -5,12 +5,14 @@ import { Background } from "./background.js";
 import { minifyGlsl } from "~/utils/minify.js";
 
 // Imports for watch only
-import "~/styles/header.css";
-import "~/styles/landing.css";
-import "~/styles/icon.css";
-import "~/styles/core.css";
-import "~/styles/lazy-landing.css";
 import "~/scripts/cool-cursor.js";
+import "~/styles/core.css";
+import "~/styles/footer.css";
+import "~/styles/header.css";
+import "~/styles/icon.css";
+import "~/styles/landing.css";
+import "~/styles/lazy-landing.css";
+
 import "~/scripts/landing.js" with { type: "text" };
 
 // Init dist folder

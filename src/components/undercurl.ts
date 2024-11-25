@@ -8,11 +8,24 @@ export const UndercurlText = (value: string) => {
 		{ class: "undercurl" },
 		span(value),
 		svg(
-			{
-				viewBox: "0 0 256 72",
-				xmlns: "http://www.w3.org/2000/svg",
-				preserveAspectRatio: "none",
-			},
+			{ viewBox: "0 0 256 72", preserveAspectRatio: "none" },
+			use({ class: "line", "xlink:href": "#undercurl" }),
+		),
+	);
+};
+
+export const UndercurlLink = (
+	{ href, target }: { href?: string; target?: "_blank" },
+	value: string,
+) => {
+	const { a, span } = env.van.tags;
+	const { svg, use } = env.van.tags("http://www.w3.org/2000/svg");
+
+	return a(
+		{ class: "undercurl", href, target: target ?? "_self" },
+		span(value),
+		svg(
+			{ viewBox: "0 0 256 72", preserveAspectRatio: "none" },
 			use({ class: "line", "xlink:href": "#undercurl" }),
 		),
 	);

@@ -1,5 +1,6 @@
 import { env } from "mini-van-plate/shared";
 
+import { Footer } from "~/components/footer.js";
 import { Header } from "~/components/header.js";
 import type { MyPage } from "~/index.js";
 
@@ -24,6 +25,7 @@ export const contactSuccessPage: MyPage = {
 				p("I’ll get back to you as soon as possible."),
 				p("Feel free to explore the rest of the site in the meantime!"),
 			),
+			Footer(),
 		);
 	},
 };
