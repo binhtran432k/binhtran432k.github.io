@@ -1,13 +1,6 @@
 import { env } from "mini-van-plate/shared";
 
-const socials = {
-	linkedin: "https://www.linkedin.com/in/binhtran432k",
-	github: "https://github.com/binhtran432k",
-	instagram: undefined,
-	x: "https://twitter.com/binhtran432k",
-	facebook: "https://www.facebook.com/binhtran432k",
-	youtube: "https://www.youtube.com/@binhtran432k",
-} as const;
+import { socials } from "~/profile.js";
 
 export const Social = () => {
 	const { div, a, span } = env.van.tags;

@@ -2,7 +2,8 @@
 #intro,
 #skill,
 #github-profile,
-#project {
+#project,
+#contact {
 	position: absolute;
 	top: -4rem;
 }
@@ -21,7 +22,9 @@ main {
 	.github-profile,
 	.projects,
 	.contact {
+		position: relative;
 		padding: 2rem 1rem;
+
 		@media only screen and (min-width: 600px) {
 			padding: 3rem 2rem;
 		}
@@ -29,7 +32,6 @@ main {
 }
 
 .skills {
-	position: relative;
 	background-color: var(--bg2);
 	div {
 		overflow: hidden;
@@ -52,7 +54,6 @@ main {
 }
 
 .github-profile {
-	position: relative;
 	a {
 		display: inline-block;
 		img {
@@ -113,7 +114,6 @@ main {
 }
 
 .projects {
-	position: relative;
 	background-color: var(--bg2);
 
 	article {
@@ -185,7 +185,6 @@ main {
 		}
 		.techs {
 			margin: 1rem 0;
-			text-transform: uppercase;
 			display: flex;
 			flex-direction: column;
 			gap: .5rem;

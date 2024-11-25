@@ -7,6 +7,21 @@ export type ProjectData = {
 	techs: string[];
 };
 
+export const metadata = {
+	name: "Binh Tran",
+	fullname: "Binh Duc Tran",
+	email: "binhtran432k@gmail.com",
+} as const;
+
+export const socials = {
+	linkedin: "https://www.linkedin.com/in/binhtran432k",
+	github: "https://github.com/binhtran432k",
+	instagram: undefined,
+	x: "https://twitter.com/binhtran432k",
+	facebook: "https://www.facebook.com/binhtran432k",
+	youtube: "https://www.youtube.com/@binhtran432k",
+} as const;
+
 export const skillMap = {
 	soft: ["Collaboration", "Communication", "Problem-solving", "Adaptability"],
 	technical: [
@@ -28,7 +43,7 @@ export const skillMap = {
 
 export const projects: ProjectData[] = [
 	{
-		title: "Ungrammar Language Feature",
+		title: "Ungrammar Language Features",
 		date: "Oct 2024",
 		image: "/assets/projects/ungrammar-language-features.webp",
 		src: "https://github.com/binhtran432k/ungrammar-language-features",
@@ -60,7 +75,7 @@ export const projects: ProjectData[] = [
 	},
 	{
 		title: "Portfolio",
-		date: "Dec 2024",
+		date: "Nov 2024",
 		image: "/assets/projects/portfolio.webp",
 		src: "https://github.com/binhtran432k/binhtran432k.github.io",
 		previewLink: "/",

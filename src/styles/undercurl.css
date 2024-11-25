@@ -7,6 +7,10 @@ span.undercurl {
 	position: relative;
 	width: fit-content;
 	padding-bottom: .4rem;
+	color: currentColor;
+	text-decoration: none;
+	text-transform: uppercase;
+
 	svg {
 		position: absolute;
 		top: 0;
@@ -18,12 +22,10 @@ span.undercurl {
 	.line {
 		stroke: currentColor;
 		fill: none;
-		stroke-linecap: round;
-		stroke-linejoin: round;
 		stroke-width: .3rem;
 		stroke-dasharray: 300;
 		stroke-dashoffset: 300;
-		transition: stroke-dashoffset .5s;
+		transition: stroke-dashoffset .5s ease;
 	}
 	&:hover .line {
 		stroke-dashoffset: 0;

@@ -6,8 +6,14 @@ import { notFoundPage } from "~/pages/404.js";
 import { landingPage } from "~/pages/landing.js";
 import { contactSuccessPage } from "./pages/contact-success.js";
 
+import headerJs from "~scripts/header.js" with { type: "text" };
 import coreCss from "~styles/core.css" with { type: "text" };
+import eyeButtonCss from "~styles/eye-button.css" with { type: "text" };
+import footerCss from "~styles/footer.css" with { type: "text" };
 import headerCss from "~styles/header.css" with { type: "text" };
+import undercurlCss from "~styles/undercurl.css" with { type: "text" };
+import { EyeDefs } from "./components/eye-button.js";
+import { UndercurlDefs } from "./components/undercurl.js";
 
 const { head, title, body, meta, link, style, script } = van.tags;
 const { svg } = van.tags("http://www.w3.org/2000/svg");
@@ -42,9 +48,14 @@ export function fetchSite(pathname: string | null): MySite {
 	const page = resolvePage(pathname);
 	const stylesRaw =
 		coreCss.trim() +
+		eyeButtonCss.trim() +
+		undercurlCss.trim() +
 		headerCss.trim() +
+		footerCss.trim() +
 		(page.styles ? page.styles.join("") : "");
-	const scriptsRaw = page.scripts ? page.scripts.join("") : "";
+	const scriptsRaw =
+		(headerJs as string).trim() + (page.scripts ? page.scripts.join("") : "");
+	const svgShare = [UndercurlDefs(), EyeDefs(), page.svgShare?.()];
 	const content = van.html(
 		{ lang: "en-us" },
 		head(
@@ -72,8 +83,7 @@ export function fetchSite(pathname: string | null): MySite {
 		),
 		body(
 			page.getChild?.(),
-			page.svgShare &&
-				svg({ style: "display:none;", hidden: true }, page.svgShare()),
+			svg({ style: "display:none;", hidden: true }, svgShare),
 			script(scriptsRaw),
 		),
 	);
