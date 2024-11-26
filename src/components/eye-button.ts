@@ -14,7 +14,12 @@ export const EyeButton = ({
 	const maskId = `eye-mask${id}`;
 
 	return a(
-		{ href, target: target ?? "_self", class: "eye-button" },
+		{
+			href,
+			target: target ?? "_self",
+			class: "eye-button",
+			"aria-label": isContact ? "Contact" : "Preview",
+		},
 		svg(
 			{
 				viewBox: "0 0 100 100",

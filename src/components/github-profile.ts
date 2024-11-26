@@ -80,6 +80,8 @@ export const GithubProfile = () => {
 				img({
 					src: "/assets/avatar.webp",
 					alt: "Avatar of Binh Tran",
+					width: 150,
+					height: 150,
 				}),
 			),
 			div({ class: "stats" }, GithubStats(), GithubLanguages()),

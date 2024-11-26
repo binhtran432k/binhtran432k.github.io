@@ -60,8 +60,6 @@ header {
 		}
 		#navbar-toggle:checked ~ &::before {
 			content: "";
-		}
-		#navbar-toggle:checked ~ &:hover::before {
 			transform: rotate(180deg);
 		}
 	}
