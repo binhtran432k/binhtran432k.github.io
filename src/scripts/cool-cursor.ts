@@ -10,7 +10,7 @@ import hoverVertexSource from "~/sharders/hover-vertex.glsl" with {
 };
 
 const TIME_PER_FRAME = Math.floor(1000 / 60);
-const DIVISOR_PER_FRAME = Math.floor(150 / TIME_PER_FRAME);
+const DIVISOR_PER_FRAME = Math.floor(200 / TIME_PER_FRAME);
 const DELTA_STRENGTH_Y = -1;
 const DELTA_STRENGTH_X = DELTA_STRENGTH_Y * (4 / 3);
 
