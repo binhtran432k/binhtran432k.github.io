@@ -4,6 +4,11 @@
 	src: url("../fonts/noir_et_blanc.woff2");
 }
 
+#intro {
+	position: absolute;
+	top: -8rem;
+}
+
 main {
 	margin-top: 2rem;
 	position: relative;

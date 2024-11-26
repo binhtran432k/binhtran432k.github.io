@@ -3,7 +3,7 @@ import { env } from "mini-van-plate/shared";
 import { Contact } from "~/components/contact.js";
 import { Footer } from "~/components/footer.js";
 import { GithubProfile } from "~/components/github-profile.js";
-import { Header } from "~/components/header.js";
+import { LandingHeader } from "~/components/header.js";
 import { Intro } from "~/components/intro.js";
 import { Projects } from "~/components/project.js";
 import { Skills } from "~/components/skill.js";
@@ -39,7 +39,7 @@ export const landingPage: MyPage = {
 	getChild: () => {
 		const { main } = env.van.tags;
 		return main(
-			Header(),
+			LandingHeader(),
 			Intro(),
 			Skills(),
 			GithubProfile(),

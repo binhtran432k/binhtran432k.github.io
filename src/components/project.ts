@@ -9,9 +9,9 @@ const Project = (
 	index: string,
 	{ title, src, image, previewLink, date, techs }: ProjectData,
 ) => {
-	const { div, span, h4, h5, article, img, a } = env.van.tags;
+	const { div, span, h4, p, article, img, a } = env.van.tags;
 	return article(
-		h5(span({ class: "index" }, index), span({ class: "date" }, date)),
+		p(span({ class: "index" }, index), span({ class: "date" }, date)),
 		h4(title),
 		div(
 			{ class: "body" },
@@ -19,8 +19,8 @@ const Project = (
 				{ class: "image" },
 				img({
 					src: image,
-					width: 700,
-					height: 100,
+					width: 720,
+					height: 360,
 					alt: `${title} Preview`,
 				}),
 			),
