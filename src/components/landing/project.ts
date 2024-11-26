@@ -2,8 +2,8 @@ import { env } from "mini-van-plate/shared";
 
 import { type ProjectData, projects } from "~/profile.js";
 
-import { EyeButton } from "./eye-button.js";
-import { UndercurlText } from "./undercurl.js";
+import { EyeButton } from "~/components/eye-button.js";
+import { UndercurlText } from "~/components/undercurl.js";
 
 const Project = (
 	index: string,

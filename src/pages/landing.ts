@@ -1,12 +1,12 @@
 import { env } from "mini-van-plate/shared";
 
-import { Contact } from "~/components/contact.js";
 import { Footer } from "~/components/footer.js";
-import { GithubProfile } from "~/components/github-profile.js";
 import { LandingHeader } from "~/components/header.js";
-import { Intro } from "~/components/intro.js";
-import { Projects } from "~/components/project.js";
-import { Skills } from "~/components/skill.js";
+import { Contact } from "~/components/landing/contact.js";
+import { GithubProfile } from "~/components/landing/github-profile.js";
+import { Intro } from "~/components/landing/intro.js";
+import { Projects } from "~/components/landing/project.js";
+import { Skills } from "~/components/landing/skill.js";
 import type { MyPage } from "~/index.js";
 
 import landingJs from "~scripts/landing.js" with { type: "text" };
