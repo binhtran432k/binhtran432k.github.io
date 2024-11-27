@@ -1,4 +1,4 @@
-header {
+body > header {
 	position: sticky;
 	top: 0;
 	left: 0;
@@ -28,7 +28,7 @@ header {
 		}
 	}
 
-	.navbar {
+	nav {
 		display: flex;
 		position: absolute;
 		background-color: var(--bg);
@@ -44,12 +44,22 @@ header {
 		transform-origin: top;
 		gap: 2rem;
 		transform: scaleY(0);
-		#navbar-toggle:checked ~ & {
+		#nav-toggle:checked ~ & {
 			transform: scaleY(1);
 		}
 	}
 
-	.navbar-toggle {
+	.wrap-nav {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.print {
+		font-size: 1.5rem;
+	}
+
+	.nav-toggle {
 		&::before {
 			/* biome-ignore lint/a11y/useGenericFontNames: custom font */
 			font-family: binhtran432k !important;
@@ -58,7 +68,7 @@ header {
 			transition: transform .3s;
 			display: inline-block;
 		}
-		#navbar-toggle:checked ~ &::before {
+		#nav-toggle:checked ~ &::before {
 			content: "";
 			transform: rotate(180deg);
 		}
@@ -66,7 +76,7 @@ header {
 
 	@media only screen {
 		@media (min-width: 600px) {
-			.navbar {
+			nav {
 				transform: scaleY(1);
 				background-color: initial;
 				position: static;
@@ -75,12 +85,12 @@ header {
 				padding: initial;
 				gap: 1rem;
 			}
-			.navbar-toggle {
+			.nav-toggle {
 				display: none;
 			}
 		}
 		@media (min-width: 768px) {
-			.navbar {
+			nav {
 				gap: 1.5rem;
 			}
 		}

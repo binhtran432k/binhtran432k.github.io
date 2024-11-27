@@ -16,19 +16,21 @@ export const contactSuccessPage: MyPage = {
 	],
 	scripts: [(headerJs as string).trim()],
 	asyncCsses: ["/styles/lazy-landing.css"],
+	useBodyBackground: true,
 	getChild: () => {
 		const { main, h1, p, section } = env.van.tags;
-		return main(
-			{ class: "background" },
+		return [
 			LandingHeader(),
-			section(
-				{ class: "page-content container" },
-				h1("Thank You! 🎉"),
-				p("Your message has been successfully sent."),
-				p("I’ll get back to you as soon as possible."),
-				p("Feel free to explore the rest of the site in the meantime!"),
+			main(
+				section(
+					{ class: "page-content container" },
+					h1("Thank You! 🎉"),
+					p("Your message has been successfully sent."),
+					p("I’ll get back to you as soon as possible."),
+					p("Feel free to explore the rest of the site in the meantime!"),
+				),
 			),
 			Footer(),
-		);
+		];
 	},
 };

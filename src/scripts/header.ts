@@ -1,10 +1,10 @@
 import { debounceAnimationFrame } from "~/utils/core.js";
 
 function setupHeaderBackground() {
-	const header = document.querySelector("header") as HTMLDivElement;
+	const header = document.querySelector("body>header") as HTMLDivElement;
 	const originHeaderBgColor = header.style.backgroundColor;
 
-	const navbarToggle = document.getElementById("navbar-toggle") as
+	const navbarToggle = document.getElementById("nav-toggle") as
 		| HTMLInputElement
 		| undefined;
 	if (!navbarToggle) return;

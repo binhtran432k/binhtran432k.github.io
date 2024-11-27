@@ -14,19 +14,11 @@ export const IntroContent = () => {
 };
 
 export const Intro = () => {
-	const { div, section, canvas } = env.van.tags;
-	return [
-		canvas({
-			class: "background",
-			id: "background-hover",
-			width: 1920,
-			height: 1080,
-		}),
-		section(
-			{ class: "intro container" },
-			div({ id: "intro" }),
-			IntroContent(),
-			Social(),
-		),
-	];
+	const { div, section } = env.van.tags;
+	return section(
+		{ class: "intro container" },
+		div({ id: "intro" }),
+		IntroContent(),
+		Social(),
+	);
 };

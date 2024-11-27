@@ -22,3 +22,10 @@ export function debounceTimeout<P extends unknown[]>(
 		}, timeout);
 	};
 }
+
+export function joinRaw(raws: (string | undefined)[]): string {
+	return raws
+		.map((x) => x?.trim())
+		.filter(Boolean)
+		.join("");
+}

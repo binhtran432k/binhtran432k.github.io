@@ -1,0 +1,61 @@
+@media print {
+	:root {
+		--bg-rgb: 255, 255, 255;
+		--fg-rgb: 33, 34, 44;
+		--info-rgb: 59, 137, 221;
+
+		--bg: rgb(var(--bg-rgb));
+		--fg: rgb(var(--fg-rgb));
+	}
+
+	.background {
+		background: none !important;
+	}
+
+	body {
+		padding: 2rem 1rem;
+		> header,
+		> footer {
+			display: none !important;
+		}
+	}
+}
+
+@page {
+	margin: 0 !important;
+}
+
+section {
+	position: relative;
+	@media screen {
+		padding: 2rem var(--container-padding-x);
+	}
+}
+
+.overview {
+	text-align: center;
+
+	@media (min-width: 600px) {
+		flex-direction: row-reverse;
+	}
+
+	.name {
+		font-size: 2.8rem;
+	}
+	.ctcs {
+		margin: .3rem 0;
+		list-style: none;
+	}
+	.ctc {
+		&:not(:last-child)::after {
+			content: "|";
+			color: var(--fg);
+			margin: 0 .5rem;
+		}
+		.icon {
+			margin-right: .3rem;
+		}
+		display: inline-flex;
+		align-items: center;
+	}
+}

@@ -37,15 +37,17 @@ export const landingPage: MyPage = {
 	scripts: [(landingJs as string).trim()],
 	asyncCsses: ["/styles/lazy-landing.css"],
 	getChild: () => {
-		const { main } = env.van.tags;
-		return main(
+		const { main, canvas } = env.van.tags;
+		return [
+			canvas({
+				class: "background",
+				id: "background-hover",
+				width: 1920,
+				height: 1080,
+			}),
 			LandingHeader(),
-			Intro(),
-			Skills(),
-			GithubProfile(),
-			Projects(),
-			Contact(),
+			main(Intro(), Skills(), GithubProfile(), Projects(), Contact()),
 			Footer(),
-		);
+		];
 	},
 };
