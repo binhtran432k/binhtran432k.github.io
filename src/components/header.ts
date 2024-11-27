@@ -2,25 +2,17 @@ import { env } from "mini-van-plate/shared";
 
 const CoolLink = ({ href, title }: { href: string; title: string }) => {
 	const { a, span } = env.van.tags;
-	return a({ href, class: "cool-link", hidecoolcursor: true }, span(title));
+	return a({ href, class: "cool-link" }, span(title));
 };
 
 const CoolButton = ({ href, title }: { href: string; title: string }) => {
 	const { a, span } = env.van.tags;
-	return a(
-		{ href, class: "cool-button shadow", hidecoolcursor: true },
-		span(title),
-	);
+	return a({ href, class: "cool-button shadow" }, span(title));
 };
 
 const HeaderLogo = ({ href }: { href: string }, page: string) => {
 	const { a, span } = env.van.tags;
-	return a(
-		{ href, class: "logo", hidecoolcursor: true },
-		"Binh",
-		" ",
-		span({ class: "site" }, page),
-	);
+	return a({ href, class: "logo" }, "Binh", " ", span({ class: "site" }, page));
 };
 
 const HeaderNav = (
@@ -49,7 +41,7 @@ export const CvHeader = () => {
 		div(
 			{ class: "container" },
 			HeaderLogo({ href: "/cv" }, "CV"),
-			HeaderNav([{ href: "/#contact", title: "Contact", isButton: true }]),
+			HeaderNav([{ href: "/", title: "Landing" }]),
 		),
 	);
 };

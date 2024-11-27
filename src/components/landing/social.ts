@@ -14,7 +14,6 @@ export const Social = () => {
 						href,
 						target: "_blank",
 						"aria-label": `${label} link`,
-						hidecoolcursor: true,
 					},
 					span({ class: `bi-${label}` }),
 				),

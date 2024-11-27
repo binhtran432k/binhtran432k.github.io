@@ -1,5 +1,8 @@
 .eye-button {
-	color: var(--fg);
+	&,
+	&:hover {
+		color: var(--fg);
+	}
 	display: inline-block;
 	width: 8em;
 	height: 8em;
