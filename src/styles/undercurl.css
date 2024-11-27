@@ -7,9 +7,12 @@ span.undercurl {
 	position: relative;
 	width: fit-content;
 	padding-bottom: .4rem;
-	color: currentColor;
 	text-decoration: none;
 	text-transform: uppercase;
+	&,
+	&:hover {
+		color: var(--fg);
+	}
 
 	svg {
 		position: absolute;

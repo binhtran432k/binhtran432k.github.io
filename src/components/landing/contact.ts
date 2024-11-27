@@ -11,7 +11,10 @@ export const Contact = () => {
 			h4("Contact"),
 			h3("Get in touch"),
 			form(
-				{ action: "https://api.staticforms.xyz/submit", method: "post" },
+				{
+					action: "https://api.staticforms.xyz/submit",
+					method: "post",
+				},
 				input({
 					type: "hidden",
 					name: "accessKey",
@@ -20,7 +23,12 @@ export const Contact = () => {
 				div(
 					label(
 						"Hey, My name is ",
-						input({ placeholder: "Type Here", name: "name", required: true }),
+						input({
+							placeholder: "Type Here",
+							name: "name",
+							required: true,
+							hidecoolcursor: true,
+						}),
 					),
 					label(
 						" I'm looking for ",
@@ -28,6 +36,7 @@ export const Contact = () => {
 							placeholder: "Type of service",
 							name: "subject",
 							required: true,
+							hidecoolcursor: true,
 						}),
 					),
 				),
@@ -38,6 +47,7 @@ export const Contact = () => {
 						placeholder: "Your Email id here",
 						name: "email",
 						required: true,
+						hidecoolcursor: true,
 					}),
 				),
 				input({ type: "hidden", name: "replyTo", value: "@" }),
@@ -51,6 +61,7 @@ export const Contact = () => {
 					placeholder: "Your Message",
 					name: "message",
 					required: true,
+					hidecoolcursor: true,
 				}),
 				button({ type: "submit", class: "cool-button" }, span("Send")),
 			),

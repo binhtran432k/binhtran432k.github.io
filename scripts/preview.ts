@@ -14,10 +14,10 @@ const server = Bun.serve({
 
 async function getFile(pathname: string): Promise<BunFile | null> {
 	const trimedPath = pathname.replace(/^\/|\/$/g, "");
-	const indexFile = Bun.file(`dist/${trimedPath}/index.html`);
-	if (await indexFile.exists()) return indexFile;
 	const file = Bun.file(`dist/${trimedPath}`);
 	if (await file.exists()) return file;
+	const indexFile = Bun.file(`dist/${trimedPath}/index.html`);
+	if (await indexFile.exists()) return indexFile;
 	return null;
 }
 
