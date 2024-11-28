@@ -33,3 +33,6 @@ export function joinRaw(raws: (string | undefined)[]): string {
 export function joinClasses(classes: (string | undefined)[]): string {
 	return [...new Set(classes.map((x) => x?.trim()).filter(Boolean))].join(" ");
 }
+
+export const listFormat = (arr: string[]) =>
+	new Intl.ListFormat("en").format(arr);

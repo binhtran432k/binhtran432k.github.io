@@ -1,6 +1,7 @@
 import { env } from "mini-van-plate/shared";
 
 import { OpenInNewIcon } from "~/icons.js";
+import { listFormat } from "~/utils/core.js";
 import { Section } from "./section.js";
 
 export const Project = (props: {
@@ -16,7 +17,7 @@ export const Project = (props: {
 			{ class: "name" },
 			a({ href: props.url, target: "_blank" }, props.name, OpenInNewIcon()),
 		),
-		span({ class: "techs" }, props.techs.join(", ")),
+		span({ class: "techs" }, listFormat(props.techs)),
 		ul(
 			{ class: "details" },
 			props.details.map((d) => li(d)),

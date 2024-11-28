@@ -4,6 +4,7 @@ import { Footer } from "~/components/footer.js";
 import { ResumeHeader } from "~/components/header.js";
 import { Overview } from "~/components/resume/overview.js";
 import { Projects } from "~/components/resume/projects.js";
+import { Skills } from "~/components/resume/skills.js";
 import { ResumeIconDefs } from "~/icons.js";
 import type { MyPage } from "~/index.js";
 
@@ -24,6 +25,6 @@ export const resumePage: MyPage = {
 	svgShare: () => ResumeIconDefs(),
 	getChild: () => {
 		const { main } = env.van.tags;
-		return [ResumeHeader(), main(Overview(), Projects()), Footer()];
+		return [ResumeHeader(), main(Overview(), Skills(), Projects()), Footer()];
 	},
 };
