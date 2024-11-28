@@ -40,7 +40,7 @@
 		border-bottom: 1px solid var(--fg);
 	}
 	article {
-		margin-top: .1rem;
+		margin-top: .2rem;
 		margin-left: 1rem;
 	}
 }
@@ -79,7 +79,6 @@
 .project {
 	.name {
 		font-size: 1rem;
-		margin: .2rem 0;
 		display: inline-block;
 
 		a {
@@ -94,7 +93,7 @@
 		}
 	}
 	.details li {
-		margin-left: 1rem;
+		margin-left: 1.2rem;
 	}
 }
 
@@ -103,6 +102,33 @@
 		text-indent: 1rem;
 		span::after {
 			content: ".";
+		}
+	}
+}
+
+.timeline {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	@media (min-width: 600px) {
+		justify-content: space-between;
+	}
+	gap: .5rem;
+
+	.label {
+		font-size: 1rem;
+	}
+	.sublabel,
+	.location {
+		opacity: 0.8;
+		font-style: italic;
+	}
+	.time,
+	.location {
+		display: block;
+		text-align: center;
+		@media (min-width: 600px) {
+			text-align: right;
 		}
 	}
 }
