@@ -3,6 +3,7 @@ import { env } from "mini-van-plate/shared";
 import { Footer } from "~/components/footer.js";
 import { ResumeHeader } from "~/components/header.js";
 import { Education } from "~/components/resume/education";
+import { OpenSourceWork } from "~/components/resume/opensource-work";
 import { Overview } from "~/components/resume/overview.js";
 import { Projects } from "~/components/resume/projects.js";
 import { Skills } from "~/components/resume/skills.js";
@@ -28,7 +29,7 @@ export const resumePage: MyPage = {
 		const { main } = env.van.tags;
 		return [
 			ResumeHeader(),
-			main(Overview(), Skills(), Projects(), Education()),
+			main(Overview(), OpenSourceWork(), Skills(), Projects(), Education()),
 			Footer(),
 		];
 	},
