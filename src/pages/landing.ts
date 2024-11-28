@@ -5,8 +5,8 @@ import { LandingHeader } from "~/components/header.js";
 import { Contact } from "~/components/landing/contact.js";
 import { GithubProfile } from "~/components/landing/github-profile.js";
 import { Intro } from "~/components/landing/intro.js";
-import { Projects } from "~/components/landing/project.js";
-import { Skills } from "~/components/landing/skill.js";
+import { Projects } from "~/components/landing/projects.js";
+import { Skills } from "~/components/landing/skills.js";
 import type { MyPage } from "~/index.js";
 
 import landingJs from "~scripts/landing.js" with { type: "text" };
