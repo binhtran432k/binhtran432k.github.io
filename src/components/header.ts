@@ -1,5 +1,6 @@
 import { env } from "mini-van-plate/shared";
 import type { ChildDom } from "mini-van-plate/van-plate";
+import { PrintIcon } from "~/icons";
 
 const CoolLink = ({ href, label }: { href: string; label: string }) => {
 	const { a, span } = env.van.tags;
@@ -41,12 +42,15 @@ const HeaderNav = (
 };
 
 export const ResumeHeader = () => {
-	const { header, div } = env.van.tags;
+	const { header, div, button } = env.van.tags;
 	return header(
 		div(
 			{ class: "container" },
 			HeaderLogo({ href: "/resume" }, "Resume"),
-			HeaderNav([{ href: "/", label: "Landing", isButton: true }]),
+			HeaderNav(
+				[{ href: "/", label: "Landing", isButton: true }],
+				button({ class: "print", onclick: "window.print();" }, PrintIcon()),
+			),
 		),
 	);
 };

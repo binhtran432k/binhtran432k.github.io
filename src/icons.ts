@@ -42,6 +42,10 @@ const icons = {
 		id: "i-open-in-new",
 		path: "M19 9q0 .4.3.7t.7.3.7-.3T21 9V4q0-.4-.3-.7T20 3H15q-.4 0-.7.3T14 4t.3.7.7.3h2.6L9 13.6q-.3.3-.3.7T9 15t.7.3.7-.3L19 6.4Zm0 12q.8-0 1.4-.6T21 19V13q0-.4-.3-.7T20 12t-.7.3-.3.7v6H5V5h6q.4 0 .7-.3T12 4t-.3-.7T11 3H5q-.8 0-1.4.6T3 5V19q0 .8.6 1.4T5 21Z",
 	},
+	print: {
+		id: "i-print",
+		path: "M8 21q-.8 0-1.4-.6T6 19V17H4q-.8 0-1.4-.6T2 15V11q0-1.3.9-2.1T5 8H19q1.3 0 2.1.9T22 11v4q0 .8-.6 1.4T20 17H18v2q0 .8-.6 1.4T16 21ZM18 7H6V5q0-.8.6-1.4T8 3h8q.8 0 1.4.6T18 5Zm0 5.5q.4 0 .7-.3t.3-.7-.3-.7-.7-.3-.7.3-.3.7.3.7.7.3M8 19h8V15H8Z",
+	},
 } satisfies Record<string, DIcon>;
 
 export const GithubIcon = Icon.bind(null, icons.github.id);
@@ -50,6 +54,7 @@ export const CallIcon = Icon.bind(null, icons.call.id);
 export const GlobeIcon = Icon.bind(null, icons.globe.id);
 export const EmailIcon = Icon.bind(null, icons.email.id);
 export const OpenInNewIcon = Icon.bind(null, icons.openInNew.id);
+export const PrintIcon = Icon.bind(null, icons.print.id);
 
 function getIconDefs(icons: DIcon[]) {
 	const { defs, path } = env.van.tags("http://www.w3.org/2000/svg");
@@ -63,4 +68,5 @@ export const ResumeIconDefs = getIconDefs.bind(null, [
 	icons.call,
 	icons.email,
 	icons.globe,
+	icons.print,
 ]);
