@@ -1,9 +1,5 @@
-footer {
-	padding: 1rem;
-
-	@media only screen and (min-width: 600px) {
-		padding: 2rem;
-	}
+body > footer {
+	padding: 2rem var(--container-padding-x);
 
 	h4 {
 		font-size: 1rem;

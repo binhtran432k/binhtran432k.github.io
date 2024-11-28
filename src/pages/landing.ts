@@ -1,12 +1,12 @@
 import { env } from "mini-van-plate/shared";
 
-import { Contact } from "~/components/contact.js";
 import { Footer } from "~/components/footer.js";
-import { GithubProfile } from "~/components/github-profile.js";
 import { LandingHeader } from "~/components/header.js";
-import { Intro } from "~/components/intro.js";
-import { Projects } from "~/components/project.js";
-import { Skills } from "~/components/skill.js";
+import { Contact } from "~/components/landing/contact.js";
+import { GithubProfile } from "~/components/landing/github-profile.js";
+import { Intro } from "~/components/landing/intro.js";
+import { Projects } from "~/components/landing/projects.js";
+import { Skills } from "~/components/landing/skills.js";
 import type { MyPage } from "~/index.js";
 
 import landingJs from "~scripts/landing.js" with { type: "text" };
@@ -37,15 +37,17 @@ export const landingPage: MyPage = {
 	scripts: [(landingJs as string).trim()],
 	asyncCsses: ["/styles/lazy-landing.css"],
 	getChild: () => {
-		const { main } = env.van.tags;
-		return main(
+		const { main, canvas } = env.van.tags;
+		return [
+			canvas({
+				class: "background",
+				id: "background-hover",
+				width: 1920,
+				height: 1080,
+			}),
 			LandingHeader(),
-			Intro(),
-			Skills(),
-			GithubProfile(),
-			Projects(),
-			Contact(),
+			main(Intro(), Skills(), GithubProfile(), Projects(), Contact()),
 			Footer(),
-		);
+		];
 	},
 };

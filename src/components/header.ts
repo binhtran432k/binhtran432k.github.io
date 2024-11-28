@@ -1,55 +1,56 @@
 import { env } from "mini-van-plate/shared";
+import type { ChildDom } from "mini-van-plate/van-plate";
+import { PrintIcon } from "~/icons";
 
-const CoolLink = ({ href, title }: { href: string; title: string }) => {
+const CoolLink = ({ href, label }: { href: string; label: string }) => {
 	const { a, span } = env.van.tags;
-	return a({ href, class: "cool-link", hidecoolcursor: true }, span(title));
+	return a({ href, class: "cool-link" }, span(label));
 };
 
-const CoolButton = ({ href, title }: { href: string; title: string }) => {
+const CoolButton = ({ href, label }: { href: string; label: string }) => {
 	const { a, span } = env.van.tags;
-	return a(
-		{ href, class: "cool-button shadow", hidecoolcursor: true },
-		span(title),
-	);
+	return a({ href, class: "cool-button shadow" }, span(label));
 };
 
 const HeaderLogo = ({ href }: { href: string }, page: string) => {
 	const { a, span } = env.van.tags;
-	return a(
-		{ href, class: "logo", hidecoolcursor: true },
-		"Binh",
-		" ",
-		span({ class: "site" }, page),
-	);
+	return a({ href, class: "logo" }, "Binh", " ", span({ class: "site" }, page));
 };
 
 const HeaderNav = (
-	links: { href: string; title: string; isButton?: boolean }[],
+	links: { href: string; label?: string; isButton?: boolean }[],
+	...extra: ChildDom[]
 ) => {
-	const { input, label, nav } = env.van.tags;
-	return [
-		input({ type: "checkbox", id: "navbar-toggle", style: "display:none;" }),
+	const { div, input, label, nav } = env.van.tags;
+	return div(
+		{ class: "wrap-nav" },
+		...extra,
+		input({ type: "checkbox", id: "nav-toggle", style: "display:none;" }),
 		label({
-			for: "navbar-toggle",
-			class: "navbar-toggle",
+			for: "nav-toggle",
+			class: "nav-toggle",
 			hidecoolcursor: true,
 		}),
 		nav(
-			{ class: "navbar" },
-			links.map(({ href, title, isButton }) =>
-				isButton ? CoolButton({ href, title }) : CoolLink({ href, title }),
+			links.map(({ href, label, isButton }) =>
+				isButton
+					? CoolButton({ href, label: label ?? href })
+					: CoolLink({ href, label: label ?? href }),
 			),
 		),
-	];
+	);
 };
 
-export const CvHeader = () => {
-	const { header, div } = env.van.tags;
+export const ResumeHeader = () => {
+	const { header, div, button } = env.van.tags;
 	return header(
 		div(
 			{ class: "container" },
-			HeaderLogo({ href: "/cv" }, "CV"),
-			HeaderNav([{ href: "/#contact", title: "Contact", isButton: true }]),
+			HeaderLogo({ href: "/resume" }, "Resume"),
+			HeaderNav(
+				[{ href: "/", label: "Landing", isButton: true }],
+				button({ class: "print", onclick: "window.print();" }, PrintIcon()),
+			),
 		),
 	);
 };
@@ -61,11 +62,11 @@ export const LandingHeader = () => {
 			{ class: "container" },
 			HeaderLogo({ href: "/" }, "Landing"),
 			HeaderNav([
-				{ href: "/#intro", title: "Intro" },
-				{ href: "/#skill", title: "Skills" },
-				{ href: "/#github-profile", title: "Github Profile" },
-				{ href: "/#project", title: "Projects" },
-				{ href: "/#contact", title: "Contact", isButton: true },
+				{ href: "/#intro", label: "Intro" },
+				{ href: "/#skill", label: "Skills" },
+				{ href: "/#github-profile", label: "Github Profile" },
+				{ href: "/#project", label: "Projects" },
+				{ href: "/#contact", label: "Contact", isButton: true },
 			]),
 		),
 	);

@@ -89,6 +89,21 @@ html {
 	}
 }
 
+a {
+	color: var(--primary);
+	text-decoration: none;
+	&:hover {
+		color: rgba(var(--primary-rgb), 0.8);
+	}
+	transition: color .3s;
+}
+
+button {
+	color: var(--fg);
+	background: none;
+	cursor: pointer;
+}
+
 .container {
 	margin: auto;
 	max-width: var(--container-max-width);
@@ -98,7 +113,7 @@ html {
 	background-image: url("~assets/background.svg");
 	background-position: center;
 	background-repeat: no-repeat;
-	background-size: auto min(90%, 1080px);
+	background-size: max(70%, 900px) auto;
 	background-attachment: fixed;
 }
 
@@ -108,7 +123,7 @@ html {
 	flex-direction: column;
 	text-align: center;
 	justify-content: center;
-	min-height: calc(100vh - 8rem);
+	min-height: calc(100vh - 7rem);
 	h1 {
 		font-size: 2rem;
 		margin-bottom: 1rem;
@@ -119,7 +134,10 @@ html {
 	position: relative;
 	display: inline-block;
 	overflow-x: hidden;
-	color: var(--fg);
+	&,
+	&:hover {
+		color: var(--fg);
+	}
 	padding-bottom: .1em;
 	&::before {
 		content: "";
@@ -155,7 +173,10 @@ html {
 .cool-button {
 	position: relative;
 	font-size: 0.875em;
-	color: var(--gray);
+	&,
+	&:hover {
+		color: var(--bg);
+	}
 	padding: 1.25em;
 	span {
 		position: relative;
@@ -193,4 +214,10 @@ html {
 		width: 95%;
 		transform: rotate(0) translateY(12%);
 	}
+}
+
+.icon {
+	width: 1em;
+	height: 1em;
+	fill: currentColor;
 }

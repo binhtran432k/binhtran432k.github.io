@@ -1,4 +1,4 @@
-export type ProjectData = {
+export type DProject = {
 	title: string;
 	image: string;
 	src: string;
@@ -8,9 +8,16 @@ export type ProjectData = {
 };
 
 export const metadata = {
-	name: "Binh Tran",
-	fullname: "Binh Duc Tran",
-	email: "binhtran432k@gmail.com",
+	firstName: "Binh",
+	middleName: "Duc",
+	lastName: "Tran",
+	job: "Fullstack Developer",
+	address: "District 12, Ho Chi Minh City, Vietnam",
+	website: "https://binhtran432k.com",
+	resume: "https://binhtran432k.com/resume",
+	phone: "tel:+84 8 32 30 61 05",
+	email: "mailto:binhtran432k@gmail.com",
+	avatar: "/assets/profile.webp",
 } as const;
 
 export const socials = {
@@ -20,6 +27,13 @@ export const socials = {
 	x: "https://twitter.com/binhtran432k",
 	facebook: "https://www.facebook.com/binhtran432k",
 	youtube: "https://www.youtube.com/@binhtran432k",
+} as const;
+
+export const contacts = {
+	website: metadata.website,
+	github: socials.github,
+	linkedin: socials.linkedin,
+	email: metadata.email,
 } as const;
 
 export const skillMap = {
@@ -38,10 +52,10 @@ export const skillMap = {
 		"TDD",
 		"BDD",
 	],
-	programmingLanguage: ["Javascript", "Typescript", "Lua", "Go", "Zig"],
+	programmingLanguage: ["Javascript", "Typescript", "Lua", "Rust", "Zig"],
 } as const;
 
-export const projects: ProjectData[] = [
+export const projects: DProject[] = [
 	{
 		title: "Ungrammar Language Features",
 		date: "Oct 2024",

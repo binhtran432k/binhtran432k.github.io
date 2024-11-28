@@ -7,6 +7,7 @@ import { minifyGlsl } from "~/utils/minify.js";
 // Imports for watch only
 import "~/scripts/cool-cursor.js";
 import "~/styles/core.css";
+import "~/styles/resume.css";
 import "~/styles/footer.css";
 import "~/styles/header.css";
 import "~/styles/icon.css";
@@ -21,6 +22,10 @@ await Bun.$`rm -rf dist`;
 // Build Clients
 await Bun.write("dist/assets/background.svg", Background().render());
 await Promise.all([buildScripts(), buildStyles()]);
+await Bun.$`mkdir -p dist`;
+await Bun.$`cp -rf .cache/scripts dist`;
+// HACK: Add postfix "src/styles" to solve Bun bundler path when the number of files is >= 9
+await Bun.$`cp -rf .cache/styles/src/styles dist`;
 
 const { fetchSite, pageMap } = await import("~/index.js");
 
@@ -39,7 +44,7 @@ export async function buildScripts() {
 	const files = await readdir("src/scripts");
 	await Bun.build({
 		entrypoints: files.map((f) => `src/scripts/${f}`),
-		outdir: "dist/scripts",
+		outdir: "./.cache/scripts",
 		minify: true,
 		plugins: [
 			{
@@ -58,8 +63,8 @@ export async function buildScripts() {
 export async function buildStyles() {
 	const files = await readdir("src/styles");
 	await Bun.build({
-		entrypoints: files.map((f) => `src/styles/${f}`),
-		outdir: "dist/styles",
+		entrypoints: files.map((f) => `./src/styles/${f}`),
+		outdir: "./.cache/styles",
 		experimentalCss: true,
 		minify: true,
 	});

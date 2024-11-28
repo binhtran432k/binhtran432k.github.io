@@ -150,16 +150,14 @@ function setupImageEffect(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
 	);
 
 	const handleMoveMouse = debounceAnimationFrame((e: MouseEvent) => {
-		if (isScrolling || window.scrollY >= gl.canvas.height) return;
+		if (isScrolling) return;
 
 		if ((e.target as HTMLElement).closest("[hidecoolcursor]"))
 			return handleHideMouse();
 
-		if (e.clientY + window.scrollY >= gl.canvas.height)
-			return handleHideMouse();
 		const { x, y } = getCursorCoord(
 			e.clientX,
-			e.clientY + window.scrollY,
+			e.clientY,
 			gl.canvas.width,
 			gl.canvas.height,
 		);

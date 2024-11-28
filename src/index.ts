@@ -5,6 +5,7 @@ import { AsyncCss } from "~/components/async-css.js";
 import { notFoundPage } from "~/pages/404.js";
 import { landingPage } from "~/pages/landing.js";
 import { contactSuccessPage } from "./pages/contact-success.js";
+import { resumePage } from "./pages/resume.js";
 
 import headerJs from "~scripts/header.js" with { type: "text" };
 import coreCss from "~styles/core.css" with { type: "text" };
@@ -14,6 +15,7 @@ import headerCss from "~styles/header.css" with { type: "text" };
 import undercurlCss from "~styles/undercurl.css" with { type: "text" };
 import { EyeDefs } from "./components/eye-button.js";
 import { UndercurlDefs } from "./components/undercurl.js";
+import { joinRaw } from "./utils/core.js";
 
 const { head, title, body, meta, link, style, script } = van.tags;
 const { svg } = van.tags("http://www.w3.org/2000/svg");
@@ -31,6 +33,7 @@ export type MySite = {
 
 export type MyPage = {
 	title: string;
+	useBodyBackground?: boolean;
 	description?: string;
 	keywords?: string[];
 	author?: string;
@@ -46,15 +49,15 @@ export type MyPage = {
 
 export function fetchSite(pathname: string | null): MySite {
 	const page = resolvePage(pathname);
-	const stylesRaw =
-		coreCss.trim() +
-		eyeButtonCss.trim() +
-		undercurlCss.trim() +
-		headerCss.trim() +
-		footerCss.trim() +
-		(page.styles ? page.styles.join("") : "");
-	const scriptsRaw =
-		(headerJs as string).trim() + (page.scripts ? page.scripts.join("") : "");
+	const stylesRaw = joinRaw([
+		coreCss,
+		eyeButtonCss,
+		undercurlCss,
+		headerCss,
+		footerCss,
+		page.styles?.join(""),
+	]);
+	const scriptsRaw = joinRaw([headerJs as string, page.scripts?.join("")]);
 	const svgShare = [UndercurlDefs(), EyeDefs(), page.svgShare?.()];
 	const content = van.html(
 		{ lang: "en-us" },
@@ -82,6 +85,7 @@ export function fetchSite(pathname: string | null): MySite {
 			page.getExtraHead?.(),
 		),
 		body(
+			page.useBodyBackground && { class: "background" },
 			page.getChild?.(),
 			svg({ style: "display:none;", hidden: true }, svgShare),
 			script(scriptsRaw),
@@ -96,17 +100,18 @@ export function fetchSite(pathname: string | null): MySite {
 export const pageMap: Readonly<Record<string, MyPage>> = {
 	"/index.html": landingPage,
 	"/contact/success/index.html": contactSuccessPage,
+	"/resume/index.html": resumePage,
 	"/404.html": notFoundPage,
 };
 
 function resolvePage(pathname: string | null): MyPage {
+	const page = pathname && pageMap[pathname];
+	if (page) return page;
+
 	const indexPage =
 		pathname &&
 		pageMap[new URL("index.html", Bun.pathToFileURL(pathname)).pathname];
 	if (indexPage) return indexPage;
 
-	const page = pathname && pageMap[pathname];
-	if (page) return page;
-
-	return pageMap["404.html"];
+	return pageMap["/404.html"];
 }

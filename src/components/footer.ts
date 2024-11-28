@@ -1,20 +1,26 @@
 import { env } from "mini-van-plate/shared";
-import { metadata, socials } from "~/profile";
-import { EyeButton } from "./eye-button";
-import { UndercurlLink } from "./undercurl";
+
+import { metadata, socials } from "~/profile.js";
+import { trimProtocol } from "~/utils/profile.js";
+import { EyeButton } from "./eye-button.js";
+import { UndercurlLink } from "./undercurl.js";
 
 const FootAvatar = () => {
 	const { div, img, h3, h4 } = env.van.tags;
 	return div(
 		{ class: "foot-avatar" },
 		img({ src: "/assets/profile.webp", alt: "Footer Avatar" }),
-		div(h3(metadata.name), h4("Software Engineer")),
+		div(h3(`${metadata.firstName} ${metadata.lastName}`), h4(metadata.job)),
 	);
 };
 
 const FootMail = () => {
 	const { div, h3, h4 } = env.van.tags;
-	return div({ class: "foot-mail" }, h4("Get in touch"), h3(metadata.email));
+	return div(
+		{ class: "foot-mail" },
+		h4("Get in touch"),
+		h3(trimProtocol(metadata.email)),
+	);
 };
 
 const FootSocial = () => {

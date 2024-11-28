@@ -22,3 +22,17 @@ export function debounceTimeout<P extends unknown[]>(
 		}, timeout);
 	};
 }
+
+export function joinRaw(raws: (string | undefined)[]): string {
+	return raws
+		.map((x) => x?.trim())
+		.filter(Boolean)
+		.join("");
+}
+
+export function joinClasses(classes: (string | undefined)[]): string {
+	return [...new Set(classes.map((x) => x?.trim()).filter(Boolean))].join(" ");
+}
+
+export const listFormat = (arr: string[]) =>
+	new Intl.ListFormat("en").format(arr);
