@@ -29,3 +29,7 @@ export function joinRaw(raws: (string | undefined)[]): string {
 		.filter(Boolean)
 		.join("");
 }
+
+export function joinClasses(classes: (string | undefined)[]): string {
+	return [...new Set(classes.map((x) => x?.trim()).filter(Boolean))].join(" ");
+}

@@ -15,7 +15,6 @@ export const contactSuccessPage: MyPage = {
 		iconCss.trim(),
 	],
 	scripts: [(headerJs as string).trim()],
-	asyncCsses: ["/styles/lazy-landing.css"],
 	useBodyBackground: true,
 	getChild: () => {
 		const { main, h1, p, section } = env.van.tags;

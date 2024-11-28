@@ -95,6 +95,7 @@ a {
 	&:hover {
 		color: rgba(var(--primary-rgb), 0.8);
 	}
+	transition: color .3s;
 }
 
 button {

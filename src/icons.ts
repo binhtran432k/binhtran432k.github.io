@@ -69,4 +69,5 @@ export const ResumeIconDefs = getIconDefs.bind(null, [
 	icons.email,
 	icons.globe,
 	icons.print,
+	icons.openInNew,
 ]);

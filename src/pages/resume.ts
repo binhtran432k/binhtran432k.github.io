@@ -3,6 +3,7 @@ import { env } from "mini-van-plate/shared";
 import { Footer } from "~/components/footer.js";
 import { ResumeHeader } from "~/components/header.js";
 import { Overview } from "~/components/resume/overview.js";
+import { Projects } from "~/components/resume/projects.js";
 import { ResumeIconDefs } from "~/icons.js";
 import type { MyPage } from "~/index.js";
 
@@ -19,11 +20,10 @@ export const resumePage: MyPage = {
 		iconCss.trim(),
 	],
 	scripts: [(headerJs as string).trim()],
-	asyncCsses: ["/styles/lazy-landing.css"],
 	useBodyBackground: true,
 	svgShare: () => ResumeIconDefs(),
 	getChild: () => {
 		const { main } = env.van.tags;
-		return [ResumeHeader(), main(Overview()), Footer()];
+		return [ResumeHeader(), main(Overview(), Projects()), Footer()];
 	},
 };

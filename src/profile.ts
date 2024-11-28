@@ -30,10 +30,10 @@ export const socials = {
 } as const;
 
 export const contacts = {
+	website: metadata.website,
 	github: socials.github,
 	linkedin: socials.linkedin,
 	email: metadata.email,
-	website: metadata.website,
 } as const;
 
 export const skillMap = {
