@@ -46,7 +46,7 @@ export const Projects = () => {
 			details: [
 				"Developed a Story Mapping Generator that compiles YAML-like code into SVG diagrams.",
 				"Hosted a website to showcase product features, including an IntelliSense-enabled editor.",
-				"Maintained coding standards through CI/CD pipelines using Biome and GitHub Actions.",
+				"Maintained coding standards through CI/CD pipelines using ESLint, Prettier, and GitHub Actions.",
 			],
 		}),
 		Project({
