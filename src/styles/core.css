@@ -111,9 +111,9 @@ button {
 
 .background {
 	background-image: url("~assets/background.svg");
-	background-position: center;
+	background-position: center min(15vh, 135px);
 	background-repeat: no-repeat;
-	background-size: max(70%, 900px) auto;
+	background-size: max(70vh, 900px) auto;
 	background-attachment: fixed;
 }
 
