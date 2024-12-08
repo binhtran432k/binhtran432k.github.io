@@ -79,12 +79,11 @@
 .project {
 	.name {
 		font-size: 1rem;
-		display: inline-block;
+		display: inline;
 
-		a {
-			display: inline-flex;
-			align-items: center;
-			gap: .2rem;
+		.icon {
+			transform: translateY(15%);
+			margin-left: .2rem;
 		}
 
 		&::after {
