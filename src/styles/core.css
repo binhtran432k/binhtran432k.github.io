@@ -110,7 +110,7 @@ button {
 }
 
 .background {
-	background-image: url("~assets/background.svg");
+	background-image: url("~/generated/background.svg");
 	background-position: center min(15vh, 135px);
 	background-repeat: no-repeat;
 	background-size: max(70vh, 900px) auto;

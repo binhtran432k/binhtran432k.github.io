@@ -1,20 +1,16 @@
 import { env } from "mini-van-plate/shared";
+import type { MyPage } from "~/type.d.js";
 
 import { Footer } from "~/components/footer.js";
 import { LandingHeader } from "~/components/header.js";
-import type { MyPage } from "~/index.js";
-
-import headerJs from "~scripts/header.js" with { type: "text" };
-import iconCss from "~styles/icon.css" with { type: "text" };
 
 export const contactSuccessPage: MyPage = {
 	title: "BINH TRAN - Contact Success",
 	author: "Binh Tran",
 	styles: [
-		":root{--primary-rgb:var(--success-rgb);--primary:rgb(var(--primary-rgb));}",
-		iconCss.trim(),
+		// ":root{--primary-rgb:var(--success-rgb);--primary:rgb(var(--primary-rgb));}",
+		"icon.css",
 	],
-	scripts: [(headerJs as string).trim()],
 	useBodyBackground: true,
 	getChild: () => {
 		const { main, h1, p, section } = env.van.tags;

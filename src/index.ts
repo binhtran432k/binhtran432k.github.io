@@ -1,63 +1,20 @@
-import { registerEnv } from "mini-van-plate/shared";
-import van, { type ChildDom } from "mini-van-plate/van-plate";
+import van from "mini-van-plate/van-plate";
 
-import { AsyncCss } from "~/components/async-css.js";
-import { notFoundPage } from "~/pages/404.js";
-import { landingPage } from "~/pages/landing.js";
-import { contactSuccessPage } from "./pages/contact-success.js";
-import { resumePage } from "./pages/resume.js";
+import type { MyPage, MySite } from "./type.d";
 
-import headerJs from "~scripts/header.js" with { type: "text" };
-import coreCss from "~styles/core.css" with { type: "text" };
-import eyeButtonCss from "~styles/eye-button.css" with { type: "text" };
-import footerCss from "~styles/footer.css" with { type: "text" };
-import headerCss from "~styles/header.css" with { type: "text" };
-import undercurlCss from "~styles/undercurl.css" with { type: "text" };
+import { AsyncCss } from "./components/async-css.js";
 import { EyeDefs } from "./components/eye-button.js";
 import { UndercurlDefs } from "./components/undercurl.js";
-import { joinRaw } from "./utils/core.js";
+import { notFoundPage } from "./pages/404.js";
+import { contactSuccessPage } from "./pages/contact-success.js";
+import { landingPage } from "./pages/landing.js";
+import { resumePage } from "./pages/resume.js";
 
-const { head, title, body, meta, link, style, script } = van.tags;
+const { head, title, body, meta, link, script } = van.tags;
 const { svg } = van.tags("http://www.w3.org/2000/svg");
-
-registerEnv({ van });
-
-export interface MyServer {
-	fetch(request: Request): string;
-}
-
-export type MySite = {
-	content: string;
-	status: 200 | 404;
-};
-
-export type MyPage = {
-	title: string;
-	useBodyBackground?: boolean;
-	description?: string;
-	keywords?: string[];
-	author?: string;
-	status?: MySite["status"];
-	styles?: string[];
-	scripts?: string[];
-	asyncCsses?: string[];
-	icons?: () => ChildDom;
-	getExtraHead?: () => ChildDom;
-	getChild?: () => ChildDom;
-	svgShare?: () => ChildDom;
-};
 
 export function fetchSite(pathname: string | null): MySite {
 	const page = resolvePage(pathname);
-	const stylesRaw = joinRaw([
-		coreCss,
-		eyeButtonCss,
-		undercurlCss,
-		headerCss,
-		footerCss,
-		page.styles?.join(""),
-	]);
-	const scriptsRaw = joinRaw([headerJs as string, page.scripts?.join("")]);
 	const svgShare = [UndercurlDefs(), EyeDefs(), page.svgShare?.()];
 	const content = van.html(
 		{ lang: "en-us" },
@@ -78,8 +35,17 @@ export function fetchSite(pathname: string | null): MySite {
 			page.author && meta({ name: "author", content: page.author }),
 
 			// Styles
-			style(stylesRaw),
-			page.asyncCsses?.map((href) => AsyncCss({ href })),
+			[
+				"core.css",
+				"eye-button.css",
+				"undercurl.css",
+				"header.css",
+				"footer.css",
+			].map((x) => link({ rel: "stylesheet", href: `/styles/${x}` })),
+			page.styles?.map((x) =>
+				link({ rel: "stylesheet", href: `/styles/${x}` }),
+			),
+			page.asyncCsses?.map((x) => AsyncCss({ href: `/styles/${x}` })),
 
 			// Extra Head Elements
 			page.getExtraHead?.(),
@@ -88,7 +54,9 @@ export function fetchSite(pathname: string | null): MySite {
 			page.useBodyBackground && { class: "background" },
 			page.getChild?.(),
 			svg({ style: "display:none;", hidden: true }, svgShare),
-			script(scriptsRaw),
+			["header.js", ...(page.scripts ?? [])].map((x) =>
+				script({ src: `/scripts/${x}`, type: "module" }),
+			),
 		),
 	);
 	return {
