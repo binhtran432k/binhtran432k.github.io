@@ -1,5 +1,7 @@
 import { env } from "mini-van-plate/shared";
 
+import type { MyPage } from "~/type.d.js";
+
 import { Footer } from "~/components/footer.js";
 import { LandingHeader } from "~/components/header.js";
 import { Contact } from "~/components/landing/contact.js";
@@ -7,11 +9,6 @@ import { GithubProfile } from "~/components/landing/github-profile.js";
 import { Intro } from "~/components/landing/intro.js";
 import { Projects } from "~/components/landing/projects.js";
 import { Skills } from "~/components/landing/skills.js";
-import type { MyPage } from "~/index.js";
-
-import landingJs from "~scripts/landing.js" with { type: "text" };
-import iconCss from "~styles/icon.css" with { type: "text" };
-import landingCss from "~styles/landing.css" with { type: "text" };
 
 export const landingPage: MyPage = {
 	title: "BINH TRAN - Self Studied Developer",
@@ -33,9 +30,9 @@ export const landingPage: MyPage = {
 		"lsp",
 	],
 	author: "Binh Tran",
-	styles: [landingCss.trim(), iconCss.trim()],
-	scripts: [(landingJs as string).trim()],
-	asyncCsses: ["/styles/lazy-landing.css"],
+	styles: ["landing.css", "icon.css"],
+	scripts: ["landing.js"],
+	asyncCsses: ["lazy-landing.css"],
 	getChild: () => {
 		const { main, canvas } = env.van.tags;
 		return [

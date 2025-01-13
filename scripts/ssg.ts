@@ -1,51 +1,86 @@
 import { readFileSync } from "node:fs";
 import { readdir } from "node:fs/promises";
-import { Background } from "./background.js";
+import { parseArgs } from "node:util";
 
 import { minifyGlsl } from "~/utils/minify.js";
+import { registerMiniVan } from "~/utils/van.js";
+import "~/index.js";
 
-// Imports for watch only
-import "~/scripts/cool-cursor.js";
-import "~/styles/core.css";
-import "~/styles/resume.css";
-import "~/styles/footer.css";
-import "~/styles/header.css";
-import "~/styles/icon.css";
-import "~/styles/landing.css";
-import "~/styles/lazy-landing.css";
+export const SRC_MAP = {
+	script: "src/scripts",
+	style: "src/styles",
+	main: "src",
+	public: "public",
+} as const;
 
-import "~/scripts/landing.js" with { type: "text" };
+const CACHE_MAP = {
+	script: ".cache/scripts",
+	style: ".cache/styles",
+} as const;
 
-// Init dist folder
-await Bun.$`rm -rf dist`;
+export async function main() {
+	const { values } = parseArgs({
+		args: Bun.argv,
+		options: {
+			target: { type: "string" },
+		},
+		strict: true,
+		allowPositionals: true,
+	});
+	if (values.target === "script") {
+		await initOutput();
+		await cacheScripts();
+	} else if (values.target === "style") {
+		await initOutput();
+		await cacheStyles();
+	} else if (values.target === "public") {
+		await initOutput();
+		await copyPublic();
+	} else if (values.target === "sites") {
+		await initOutput();
+		await generateSites();
+	} else {
+		await cleanOutput();
 
-// Build Clients
-await Bun.write("dist/assets/background.svg", Background().render());
-await Promise.all([buildScripts(), buildStyles()]);
-await Bun.$`mkdir -p dist`;
-await Bun.$`cp -rf .cache/scripts dist`;
-// HACK: Add postfix "src/styles" to solve Bun bundler path when the number of files is >= 9
-await Bun.$`cp -rf .cache/styles/src/styles dist`;
+		await initOutput();
 
-const { fetchSite, pageMap } = await import("~/index.js");
+		await cacheStyles();
+		await cacheScripts();
 
-await Promise.all([
-	// Copy public
-	Bun.$`cp -r public/* dist`,
-	// Write Sites
-	...Object.keys(pageMap).map((page) => writeSite(page)),
-]);
-
-async function writeSite(pathname: string): Promise<number> {
-	return await Bun.write(`dist${pathname}`, fetchSite(pathname).content);
+		await copyPublic();
+		await generateSites();
+	}
 }
 
-export async function buildScripts() {
-	const files = await readdir("src/scripts");
+async function cleanOutput() {
+	await Bun.$`rm -rf dist .cache`;
+}
+
+async function initOutput() {
+	await Bun.$`mkdir -p dist`;
+}
+
+async function copyPublic() {
+	await Bun.$`cp -r public/* dist`;
+}
+
+async function generateSites() {
+	await registerMiniVan();
+	const { fetchSite, pageMap } = await import("~/index.js");
+
+	async function writeSite(pathname: string): Promise<number> {
+		return await Bun.write(`dist${pathname}`, fetchSite(pathname).content);
+	}
+	await Promise.all([...Object.keys(pageMap).map((page) => writeSite(page))]);
+}
+
+async function cacheScripts() {
+	const files = await readdir(SRC_MAP.script);
 	await Bun.build({
-		entrypoints: files.map((f) => `src/scripts/${f}`),
-		outdir: "./.cache/scripts",
+		entrypoints: files.map((f) => `${SRC_MAP.script}/${f}`),
+		outdir: CACHE_MAP.script,
 		minify: true,
+		splitting: true,
 		plugins: [
 			{
 				name: "glsl",
@@ -58,14 +93,23 @@ export async function buildScripts() {
 			},
 		],
 	});
+	await Bun.$`cp -rf ${CACHE_MAP.script} dist`;
 }
 
-export async function buildStyles() {
-	const files = await readdir("src/styles");
+async function cacheStyles() {
+	const files = await readdir(SRC_MAP.style);
 	await Bun.build({
-		entrypoints: files.map((f) => `./src/styles/${f}`),
-		outdir: "./.cache/styles",
+		entrypoints: files.map((f) => `${SRC_MAP.style}/${f}`),
+		outdir: CACHE_MAP.style,
 		experimentalCss: true,
+		splitting: true,
 		minify: true,
 	});
+	// await Bun.$`cp -rf .cache/styles dist`;
+	// HACK: Add postfix "src/styles" to solve Bun bundler path when the number of files is >= 9
+	await Bun.$`cp -rf ${CACHE_MAP.style}/src/styles dist`;
+}
+
+if (import.meta.main) {
+	await main();
 }

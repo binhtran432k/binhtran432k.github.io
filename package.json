@@ -4,9 +4,10 @@
 	"type": "module",
 	"scripts": {
 		"fix": "biome check --fix --unsafe",
-		"build": "bun scripts/ssg.ts",
-		"build:watch": "bun --watch scripts/ssg.ts",
-		"preview": "bun build:watch | bun scripts/preview.ts"
+		"dev": "bun scripts/dev.ts",
+		"preview": "bun scripts/dev.ts --preview",
+		"background": "bun scripts/background.ts",
+		"build": "bun scripts/ssg.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "^1.1.13",
