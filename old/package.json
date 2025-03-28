@@ -1,0 +1,16 @@
+{
+	"name": "binhtran432k.github.io",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"fix": "biome check --fix --unsafe",
+		"dev": "bun scripts/dev.ts",
+		"preview": "bun scripts/dev.ts --preview",
+		"background": "bun scripts/background.ts",
+		"build": "bun scripts/ssg.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "^1.1.13",
+		"mini-van-plate": "^0.6.1"
+	}
+}
