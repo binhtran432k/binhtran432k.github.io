@@ -5,10 +5,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-	--color-bg: #f8f8f2;
-	--color-fg: #21222c;
-	--color-danger: #FF5555;
-	--color-info: #8be9fd;
+	--color-bg: #fffffd;
+	--color-bg-dark: #21222c;
+	--color-fg: #282a36;
+	--color-fg-dark: #f8f8f2;
+	--color-danger: #ef4545;
+	--color-danger-dark: #ff5555;
+	--color-info: #3b89dd;
+	--color-info-dark: #8be9fd;
 
 	--animate-around: around 1s infinite;
 	@keyframes around {
@@ -50,4 +54,9 @@
 			transform: translateY(0);
 		}
 	}
+}
+
+@page {
+	size: A4;
+	margin: 0;
 }

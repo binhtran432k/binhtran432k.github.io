@@ -1,7 +1,7 @@
 import { Meta, Title } from "@solidjs/meta";
-import Footer from "~/sections/Footer";
-import Header from "~/sections/Header";
-import Intro from "~/sections/Intro";
+import Footer from "~/sections/home/Footer";
+import Header from "~/sections/home/Header";
+import Intro from "~/sections/home/Intro";
 
 export default function Home() {
 	return (

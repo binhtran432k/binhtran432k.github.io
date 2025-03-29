@@ -1,5 +1,6 @@
 import { A } from "@solidjs/router";
 import { For } from "solid-js";
+import { socialData } from "~/assets/profile";
 
 interface SocialLinkProps {
 	url: string;
@@ -9,29 +10,29 @@ interface SocialLinkProps {
 
 const socials: SocialLinkProps[] = [
 	{
-		url: "https://github.com/binhtran432k",
+		url: socialData.github,
 		label: "Github",
-		icon: "icon-[simple-icons--github]",
+		icon: "icon-[fa6-brands--github]",
 	},
 	{
-		url: "https://www.linkedin.com/in/binhtran432k",
+		url: socialData.linkedin,
 		label: "Linkedin",
-		icon: "icon-[ri--linkedin-fill]",
+		icon: "icon-[fa6-brands--linkedin]",
 	},
 	{
-		url: "https://x.com/binhtran432k",
+		url: socialData.x,
 		label: "X",
-		icon: "icon-[simple-icons--x]",
+		icon: "icon-[fa6-brands--x-twitter]",
 	},
 	{
-		url: "https://www.facebook.com/binhtran432k",
+		url: socialData.facebook,
 		label: "Facebook",
-		icon: "icon-[simple-icons--facebook]",
+		icon: "icon-[fa6-brands--facebook]",
 	},
 	{
-		url: "https://www.youtube.com/@binhtran432k",
+		url: socialData.youtube,
 		label: "Youtube",
-		icon: "icon-[simple-icons--youtube]",
+		icon: "icon-[fa6-brands--youtube]",
 	},
 ];
 
@@ -39,17 +40,17 @@ function SocialLink(props: SocialLinkProps) {
 	return (
 		<div class="group relative flex place-items-center">
 			<span
-				class="absolute top-0 left-0 hidden text-info group-hover:block group-hover:animate-around group-hover:[animation-duration:300ms]"
+				class="absolute top-0 left-0 hidden text-info group-hover:block group-hover:animate-around dark:text-info-dark group-hover:[animation-duration:300ms]"
 				classList={{ [props.icon]: true }}
 			/>
 			<span
-				class="absolute top-0 left-0 hidden text-danger group-hover:block group-hover:animate-around group-hover:[animation-delay:150ms] group-hover:[animation-duration:300ms]"
+				class="absolute top-0 left-0 hidden text-danger group-hover:block group-hover:animate-around dark:text-danger-dark group-hover:[animation-delay:150ms] group-hover:[animation-duration:300ms]"
 				classList={{ [props.icon]: true }}
 			/>
 			<A
 				href={props.url}
 				target="_blank"
-				title={`Social Link of ${props.label}`}
+				title={`Social Link for ${props.label}`}
 				class="z-10"
 				rel="noreferrer"
 			>
