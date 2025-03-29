@@ -1,18 +1,53 @@
 @import "tailwindcss";
 
-:root {
-  --background-rgb: 214, 219, 220;
-  --foreground-rgb: 0, 0, 0;
-}
+@plugin "@iconify/tailwind4";
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-rgb: 0, 0, 0;
-    --foreground-rgb: 255, 255, 255;
-  }
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-body {
-  background: rgb(var(--background-rgb));
-  color: rgb(var(--foreground-rgb));
+@theme {
+	--color-bg: #f8f8f2;
+	--color-fg: #21222c;
+	--color-danger: #FF5555;
+	--color-info: #8be9fd;
+
+	--animate-around: around 1s infinite;
+	@keyframes around {
+		0% {
+			transform: translate3d(12%, -12%, 0);
+		}
+		25% {
+			transform: translate3d(12%, 12%, 0);
+		}
+		50% {
+			transform: translate3d(-12%, 12%, 0);
+		}
+		75% {
+			transform: translate3d(-12%, -12%, 0);
+		}
+		100% {
+			transform: translate3d(0, 0, 0);
+		}
+	}
+
+	--animate-deepPulse: deepPulse 1s alternate infinite;
+	@keyframes deepPulse {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+	}
+
+	--animate-deepBounce: deepBounce 1s infinite;
+	@keyframes deepBounce {
+		0%,
+		100% {
+			transform: translateY(-50%);
+		}
+		50% {
+			transform: translateY(0);
+		}
+	}
 }
